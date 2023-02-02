@@ -1353,5 +1353,6 @@ button2.addEventListener('click', handleButtonClick);
 
 let CS = document.createElement("link");
 CS.type = "text/css";
-CS.innerHTML = "";
+CS.rel = "stylesheet";
+CS.href = "https://raw.githubusercontent.com/Sigmally/CzMod/main/CzStyle.css";
 (document.head || document.documentElement).appendChild(CS);
