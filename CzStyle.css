@@ -613,21 +613,3 @@ button {
 .removeAds {
     display: none;
 }
-
-.font-selector {
-    display: inline-block;
-    margin: 10px;
-}
-    
-.font-selector input[type="radio"] {
-    display: none;
-}
-    
-.font-selector label {
-    cursor: pointer;
-    font-family: sans-serif;
-}
-    
-.custom-font {
-    font-family: 'CustomFont', sans-serif;
-}
