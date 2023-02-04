@@ -59,79 +59,93 @@
         });
 
         window.addEventListener('keydown', (e) => {
-
-            if(event.code === "KeyV" && !document.activeElement.tagName !== "INPUT") {
-                toggleMenu();
-            }
-            if(event.code === "KeyX"){
-                location.reload();
-                localStorage.setItem('reloaded', 'success');
-            }
-
-            if(e.code == "v") {
-                toggleMenu();
-            }
-            if(e.code == "x"){
-                location.reload();
-                localStorage.setItem('reloaded', 'success');
-            }
-
-            if (e.key == "e"){
-
-                window.dispatchEvent(new KeyboardEvent('keydown', KEY_FEED ));
-                window.dispatchEvent(new KeyboardEvent('keyup', KEY_FEED ));
-                window.dispatchEvent(new KeyboardEvent('keydown', KEY_FEED ));
-                window.dispatchEvent(new KeyboardEvent('keyup', KEY_FEED ));
-                window.dispatchEvent(new KeyboardEvent('keydown', KEY_FEED ));
-                window.dispatchEvent(new KeyboardEvent('keyup', KEY_FEED ));
-                window.dispatchEvent(new KeyboardEvent('keydown', KEY_FEED ));
-                window.dispatchEvent(new KeyboardEvent('keyup', KEY_FEED ));
-                window.dispatchEvent(new KeyboardEvent('keydown', KEY_FEED ));
-                window.dispatchEvent(new KeyboardEvent('keyup', KEY_FEED ));
-                for (var i = 0; i < amount; ++i) {
-                    CzTimeouts.push(setTimeout(function() {
-                        window.dispatchEvent(new KeyboardEvent('keydown', KEY_FEED ));
-                        window.dispatchEvent(new KeyboardEvent('keyup', KEY_FEED ));
-                        window.dispatchEvent(new KeyboardEvent('keydown', KEY_FEED ));
-                        window.dispatchEvent(new KeyboardEvent('keyup', KEY_FEED ));
-                        window.dispatchEvent(new KeyboardEvent('keydown', KEY_FEED ));
-                        window.dispatchEvent(new KeyboardEvent('keyup', KEY_FEED ));
-                    }, i ));
-                }
-
+            let e_dcb = document.getElementById('enableKeyBindings');
+            let en = true;
+            let inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('input', () => {
+                    en = false;
+                });
+            });
+            if (!en || document.activeElement.nodeName === 'INPUT') {
                 return;
             }
+            if(e_dcb){
+                if(e_dcb.checked){
+                    en = true;
+                    if(event.code === "KeyV") {
+                        toggleMenu();
+                    }
+                    if(event.code === "KeyX"){
+                        location.reload();
+                        localStorage.setItem('reloaded', 'success');
+                    }
 
-            if (e.key == "f"){
-                for (let i = 0; i < 2; ++i) {
-                    setTimeout(function() {
+                    if(e.code == CzSettings.keyBindingsToggleMenu) {
+                        toggleMenu();
+                    }
+                    if(e.code == CzSettings.keyBindingsRespawn){
+                        location.reload();
+                        localStorage.setItem('reloaded', 'success');
+                    }
+
+                    if (e.key == "e"){
+                        window.dispatchEvent(new KeyboardEvent('keydown', KEY_FEED ));
+                        window.dispatchEvent(new KeyboardEvent('keyup', KEY_FEED ));
+                        window.dispatchEvent(new KeyboardEvent('keydown', KEY_FEED ));
+                        window.dispatchEvent(new KeyboardEvent('keyup', KEY_FEED ));
+                        window.dispatchEvent(new KeyboardEvent('keydown', KEY_FEED ));
+                        window.dispatchEvent(new KeyboardEvent('keyup', KEY_FEED ));
+                        window.dispatchEvent(new KeyboardEvent('keydown', KEY_FEED ));
+                        window.dispatchEvent(new KeyboardEvent('keyup', KEY_FEED ));
+                        window.dispatchEvent(new KeyboardEvent('keydown', KEY_FEED ));
+                        window.dispatchEvent(new KeyboardEvent('keyup', KEY_FEED ));
+                        for (var i = 0; i < amount; ++i) {
+                            CzTimeouts.push(setTimeout(function() {
+                                window.dispatchEvent(new KeyboardEvent('keydown', KEY_FEED ));
+                                window.dispatchEvent(new KeyboardEvent('keyup', KEY_FEED ));
+                                window.dispatchEvent(new KeyboardEvent('keydown', KEY_FEED ));
+                                window.dispatchEvent(new KeyboardEvent('keyup', KEY_FEED ));
+                                window.dispatchEvent(new KeyboardEvent('keydown', KEY_FEED ));
+                                window.dispatchEvent(new KeyboardEvent('keyup', KEY_FEED ));
+                            }, i ));
+                        }
+
+                        return;
+                    }
+
+                    if (e.key == "f"){
+                        for (let i = 0; i < 2; ++i) {
+                            setTimeout(function() {
+                                window.dispatchEvent(new KeyboardEvent('keydown', KEY_SPLIT));
+                                window.dispatchEvent(new KeyboardEvent('keyup', KEY_SPLIT));
+                            }, i + 1 );
+                        }
+                        return;
+                    }
+
+                    if (e.key == "t"){
                         window.dispatchEvent(new KeyboardEvent('keydown', KEY_SPLIT));
                         window.dispatchEvent(new KeyboardEvent('keyup', KEY_SPLIT));
-                    }, i + 1 );
+                        window.dispatchEvent(new KeyboardEvent('keydown', KEY_SPLIT));
+                        window.dispatchEvent(new KeyboardEvent('keyup', KEY_SPLIT));
+                        window.dispatchEvent(new KeyboardEvent('keydown', KEY_SPLIT));
+                        window.dispatchEvent(new KeyboardEvent('keyup', KEY_SPLIT));
+                        return;
+                    }
+
+                    if (e.key == "r"){
+                        window.dispatchEvent(new KeyboardEvent('keydown', KEY_SPLIT));
+                        window.dispatchEvent(new KeyboardEvent('keyup', KEY_SPLIT));
+                        window.dispatchEvent(new KeyboardEvent('keydown', KEY_SPLIT));
+                        window.dispatchEvent(new KeyboardEvent('keyup', KEY_SPLIT));
+                        window.dispatchEvent(new KeyboardEvent('keydown', KEY_SPLIT));
+                        window.dispatchEvent(new KeyboardEvent('keyup', KEY_SPLIT));
+                        window.dispatchEvent(new KeyboardEvent('keydown', KEY_SPLIT));
+                        window.dispatchEvent(new KeyboardEvent('keyup', KEY_SPLIT));
+                        return;
+                    }
                 }
-                return;
-            }
-
-            if (e.key == "t"){
-                window.dispatchEvent(new KeyboardEvent('keydown', KEY_SPLIT));
-                window.dispatchEvent(new KeyboardEvent('keyup', KEY_SPLIT));
-                window.dispatchEvent(new KeyboardEvent('keydown', KEY_SPLIT));
-                window.dispatchEvent(new KeyboardEvent('keyup', KEY_SPLIT));
-                window.dispatchEvent(new KeyboardEvent('keydown', KEY_SPLIT));
-                window.dispatchEvent(new KeyboardEvent('keyup', KEY_SPLIT));
-                return;
-            }
-
-            if (e.key == "r"){
-                window.dispatchEvent(new KeyboardEvent('keydown', KEY_SPLIT));
-                window.dispatchEvent(new KeyboardEvent('keyup', KEY_SPLIT));
-                window.dispatchEvent(new KeyboardEvent('keydown', KEY_SPLIT));
-                window.dispatchEvent(new KeyboardEvent('keyup', KEY_SPLIT));
-                window.dispatchEvent(new KeyboardEvent('keydown', KEY_SPLIT));
-                window.dispatchEvent(new KeyboardEvent('keyup', KEY_SPLIT));
-                window.dispatchEvent(new KeyboardEvent('keydown', KEY_SPLIT));
-                window.dispatchEvent(new KeyboardEvent('keyup', KEY_SPLIT));
-                return;
             }
         })
         if (localStorage.getItem('reloaded') === 'success') {
@@ -196,10 +210,6 @@
                     <h2>Key Bindings</h2>
                     <div class="keybindings__inner">
                             <span class="alignCenter">Currently you can't change keybindings. <br> you will able to change them in the next updates</span>
-                            <!--<div class="KeyBindingsOption">
-                                <span class="span__description">Enable Keybindings</span>
-                                <input type="checkbox" class="checkbox" id="enableKeyBindings" checked>
-                            </div>-->
                             <div class="KeyBindingsOption">
                                 <span class="span__description">Macros / fast feed</span>
                                 <div style="display:flex; justify-content: center; align-items: center;">
@@ -227,6 +237,10 @@
                                 <span class="span__description">simple Respawn</span>
                                 <input type="text" class="keybinding" value="x"  maxlength="1" disabled onfocus="this.select()" id="respawnKB">
                             </div>
+                            <div class="KeyBindingsOption">
+                                <span class="span__description">Enable Keybindings</span>
+                                <input type="checkbox" class="checkbox" id="enableKeyBindings" checked>
+                            </div
                     </div>
                 </div>
                 <div class="Option-tab" id="reduceLags-tab">
