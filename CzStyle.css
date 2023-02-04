@@ -640,11 +640,11 @@ button {
 }
 
 .toggler-wrapper input[type="checkbox"]:checked+.toggler-slider {
-  background-color: #44cc66;
+  background-color: #74D38C;
 }
 
 .toggler-wrapper .toggler-slider {
-  background-color: #ccc;
+  background-color: #8B8B8B;
   position: absolute;
   border-radius: 100px;
   top: 0;
