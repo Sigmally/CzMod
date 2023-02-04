@@ -664,7 +664,7 @@ button {
 .border-div{
     z-index: -5;
     width: 610px;
-    height: 432px;
+    height: 460px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -683,7 +683,7 @@ button {
     content: '';
     position: absolute;
     width: 150px;
-    height: 170%;
+    height: 200%;
     background: linear-gradient(#00ccff, #d400d4);
     animation: borderAnimate 4s linear infinite;
 }
