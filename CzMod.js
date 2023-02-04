@@ -18,20 +18,6 @@
     });
 
     setTimeout(()=> {
-        const loaded = document.createElement("div");
-        loaded.innerHTML = `
-               <span style="color: #fff;">CzMod loaded!</span>
-            `;
-        loaded.style = 'z-index: 99996; position: absolute; top: -40px; left: 50%; transform: translate(-50%, -50%); background-color: #555; padding: 20px 40px; border-radius: 15px; transition: .3s';
-        setTimeout(()=>{
-            loaded.style = 'z-index: 99996; position: absolute; top: 40px; left: 50%; transform: translate(-50%, -50%); background-color: #555; padding: 20px 40px; border-radius: 15px; transition: .3s';
-            setTimeout(()=>{
-                loaded.style = 'z-index: 99996; position: absolute; top: -40px; left: 50%; transform: translate(-50%, -50%); background-color: #555; padding: 20px 40px; border-radius: 15px; transition: .3s'
-            }, 1500);
-        },500);
-
-        document.body.appendChild(loaded)
-
         //from Sig mod (RingZer0)
         const KEY_FEED = {
             key: 'w',
