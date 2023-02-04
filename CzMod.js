@@ -81,14 +81,6 @@
                         localStorage.setItem('reloaded', 'success');
                     }
 
-                    if(e.code == CzSettings.keyBindingsToggleMenu) {
-                        toggleMenu();
-                    }
-                    if(e.code == CzSettings.keyBindingsRespawn){
-                        location.reload();
-                        localStorage.setItem('reloaded', 'success');
-                    }
-
                     if (e.key == "e"){
                         window.dispatchEvent(new KeyboardEvent('keydown', KEY_FEED ));
                         window.dispatchEvent(new KeyboardEvent('keyup', KEY_FEED ));
