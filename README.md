@@ -12,7 +12,7 @@ A Sigmally Mod made by cursed. Insperation from SigMod (Ringzeros Sigmally Mod).
 // @description  A Sigmally Mod by Cursed with new upcoming Features
 // @author       Cursed
 // @match        *.sigmally.com/*
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=sigmally.com
+// @icon         https://i.ibb.co/stMSFvd/Cz-Mod-Logo.png
 // @require      https://raw.githubusercontent.com/Sigmally/CzMod/main/CzMod.js
 // ==/UserScript==
 ````
