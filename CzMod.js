@@ -916,7 +916,7 @@ setTimeout(() => {
     let skin = document.getElementById("js-skin-select-icon");
     let randomIndex = Math.floor(Math.random() * skinLinks.premium.length);
     let randomImageLink = skinLinks.premium[randomIndex];
-    skin.style = `background-image: url(${randomImageLink}`;
+    skin.style = `background-image: url(${randomImageLink})`;
   });
 
   let rainbowMenuBtn = document.getElementById("rainbowMenu");
