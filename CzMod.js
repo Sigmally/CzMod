@@ -149,6 +149,7 @@ setTimeout(() => {
   menu.style = "display: none; opacity: 0;";
   menu.id = "Modmenu";
   menu.innerHTML = `
+  <div class="border-div"></div>
 <div class="top-menu">
                 <img src="https://i.ibb.co/stMSFvd/Cz-Mod-Logo.png" class="Logo" draggable="false">
                 <button class="button close-btn" id="closeMenuBtn">X</button>
