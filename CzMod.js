@@ -5,7 +5,7 @@
     document.getElementsByTagName('head')[0].appendChild(link);
 
     document.title = 'Sigmally - CzMod';
-    fetch('https://raw.githubusercontent.com/Sigmally/CzMod/main/CzStyle.css?v=' + Math.random())
+    fetch('https://raw.githubusercontent.com/Sigmally/CzMod/main/CzStyle.css')
         .then(response => response.text())
         .then(cssText => {
         const styleElement = document.createElement('style');
