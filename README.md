@@ -9,7 +9,7 @@ A Sigmally Mod made by cursed. Insperation from SigMod (Ringzeros Sigmally Mod).
 // ==UserScript==
 // @name         CzMod
 // @version      1
-// @description  try to take over the world!
+// @description  A Sigmally Mod by Cursed with new upcoming Features
 // @author       Cursed
 // @match        *.sigmally.com/*
 // @icon         https://i.ibb.co/stMSFvd/Cz-Mod-Logo.png
