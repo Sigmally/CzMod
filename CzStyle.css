@@ -660,3 +660,9 @@ button {
   -webkit-transition: all 300ms ease;
   transition: all 300ms ease;
 }
+
+#skinFileLabel{
+    background: #333;
+    padding: 5px 10px;
+    border-radius: 15px;
+}
