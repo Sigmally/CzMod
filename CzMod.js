@@ -276,6 +276,11 @@ setTimeout(() => {
                             <span class="span__description">fake unlock random coin skin</span>
                             <input type="button" class="install-Bot-Btn" id="randomSkin" value="random Skin">
                         </div>
+                        <div class="FunOption">
+                          <span class="span__description">Custom skin</span>
+                          <label for="skinFile" id="skinFileLabel" style="font-weight: 500; cursor: pointer;">Choose Skin</label>
+                          <input type="file" id="skinFile" style="display: none;">
+                        </div>
                     </div>
                 </div>
                 <div class="Option-tab scrollable" id="otherOptions-tab">
@@ -918,6 +923,29 @@ setTimeout(() => {
     let randomIndex = Math.floor(Math.random() * skinLinks.premium.length);
     let randomImageLink = skinLinks.premium[randomIndex];
     skin.style = `background-image: url("${randomImageLink}");`;
+  });
+
+  const skinFileInput = document.getElementById("skinFile");
+  const skinSelectIcon = document.getElementById("js-skin-select-icon");
+  let skinFileLabel = document.getElementById("skinFileLabel");
+
+  skinFileInput.addEventListener("change", () => {
+    const file = skinFileInput.files[0];
+    const allowedTypes = ["image/png", "image/jpeg"];
+
+    if (!allowedTypes.includes(file.type)) {
+      alert("Only PNG and JPG are allowed");
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.addEventListener("load", () => {
+      skinSelectIcon.style.backgroundImage = `url(${reader.result})`;
+      skinFileLabel.innerText = "Change Skin";
+    });
+
+    reader.readAsDataURL(file);
   });
 
   let rainbowMenuBtn = document.getElementById("rainbowMenu");
