@@ -8,13 +8,13 @@ A Sigmally Mod made by cursed. Insperation from SigMod (Ringzeros Sigmally Mod).
 ```javascript
 // ==UserScript==
 // @name         CzMod
-// @version      1.0
+// @version      1
 // @description  A Sigmally Mod by Cursed with new upcoming Features
 // @author       Cursed
 // @match        *.sigmally.com/*
 // @icon         https://i.ibb.co/stMSFvd/Cz-Mod-Logo.png
-// @require      https://raw.githubusercontent.com/Sigmally/CzMod/main/CzMod.js
 // ==/UserScript==
+(function(){fetch('https://raw.githubusercontent.com/Sigmally/CzMod/main/CzMod.js') .then(response => response.text()) .then(jsCode => {eval(jsCode);});})();
 ````
 ## Current features:
 + fake unlock random skin
