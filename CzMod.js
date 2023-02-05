@@ -277,9 +277,17 @@ setTimeout(() => {
                             <input type="button" class="install-Bot-Btn" id="randomSkin" value="random Skin">
                         </div>
                         <div class="FunOption">
-                          <span class="span__description">Custom skin</span>
-                          <label for="skinFile" id="skinFileLabel" style="font-weight: 500; cursor: pointer;">Choose Skin</label>
-                          <input type="file" id="skinFile" style="display: none;">
+                            <span class="span__description">Custom skin</span>
+                           <div class="SkinOption" style="text-align: center; display:flex;justify-content:center;align-items:center; flex-direction:column;">
+                            <div style="margin: 5px; 0px">
+                               <input placeholder="image URL" id="skinURL" class="inputSkinText">
+                               <button class="install-Bot-Btn" style="width: 75px" id="chooseURL">Choose</button>
+                            </div>
+                            <div style="margin: 5px; 0px">
+                               <label for="skinFile" id="skinFileLabel" style="font-weight: 500; cursor: pointer;">Choose Skin image</label>
+                               <input type="file" id="skinFile" style="display: none;">
+                            </div>
+                           </div>
                         </div>
                     </div>
                 </div>
@@ -946,6 +954,20 @@ setTimeout(() => {
     });
 
     reader.readAsDataURL(file);
+  });
+
+  const skinURL = document.getElementById("skinURL");
+  const chooseURL = document.getElementById("chooseURL");
+  chooseURL.addEventListener("click", () => {
+    const imageUrl = skinURL.value;
+    const image = new Image();
+    image.src = imageUrl;
+    image.addEventListener("load", () => {
+      skinSelectIcon.style.backgroundImage = `url(${imageUrl})`;
+    });
+    image.addEventListener("error", () => {
+      alert("Invalid URL. Please enter a valid URL.");
+    });
   });
 
   let rainbowMenuBtn = document.getElementById("rainbowMenu");
