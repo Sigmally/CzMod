@@ -1250,9 +1250,11 @@ setTimeout(() => {
     let playBtn = document.getElementById("play-btn");
     if (spectateBtnOption.checked) {
       spectateBtn.style.display = "flex";
+      spectateBtn.style.visibility = 'visible';
       playBtn.style.width = "83%";
     } else {
       spectateBtn.style.display = "none";
+      spectateBtn.style.visibility = 'hidden';
       playBtn.style.width = "100%";
     }
   });
