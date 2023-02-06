@@ -1,5 +1,5 @@
 # CzMod by Cursed
-A Sigmally Mod made by cursed. Insperation from SigMod (Ringzeros Sigmally Mod). Download below
+A Sigmally Mod made by cursed. Insperation from SigMod (Ringzeros Sigmally Mod).
 ## Installation
 **Tampermonkey:** 
 + Download *[Tampermonkey](https://www.tampermonkey.net)* from the store.
