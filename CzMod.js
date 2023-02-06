@@ -939,7 +939,7 @@ setTimeout(() => {
 
   skinFileInput.addEventListener("change", () => {
     const file = skinFileInput.files[0];
-    const allowedTypes = ["image/png", "image/jpeg"];
+    const allowedTypes = ["image/png", "image/jpeg", "image/gif"];
 
     if (!allowedTypes.includes(file.type)) {
       alert("Only PNG and JPG are allowed");
