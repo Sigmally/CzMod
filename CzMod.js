@@ -353,12 +353,6 @@ setTimeout(() => {
                                     <input type="checkbox" class="checkbox" id="longNickname">
                                 </div>
                             </div>
-                            <div class="otherOption">
-                                <span class="span__description">Spectate Button</span>
-                                <div class="alignCenter">
-                                    <input type="checkbox" class="checkbox" id="spectateBtn">
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -457,133 +451,10 @@ setTimeout(() => {
       intervalId = null;
     }
   };
-
-  let playBtn = document.getElementById("play-btn");
-  playBtn.style.transition = ".3s";
-  let spectate = document.createElement("button");
-  spectate.style =
-    "background-image: url('https://i.ibb.co/NxKqFbV/eyeIconn.png');  height: 34px; width: 15%; background-size: cover; background-position: 0; background-repeat: no-repeat; transition: .3s; margin: 2px 0px";
-  spectate.classList.add(
-    "btn",
-    "btn-play",
-    "btn-success",
-    "btn-needs-server",
-    "hidden"
-  );
-  spectate.id = "spectate-btn";
-
-  spectate.addEventListener("click", function () {
-    unsafeWindow.spectate();
-    drawSpectateMenu();
-    let e = new KeyboardEvent("keydown", {
-      keyCode: 81,
-      which: 81,
-      key: "q",
-      code: "KeyQ",
-      bubbles: true,
-      cancelable: true,
-    });
-    document.dispatchEvent(e);
-  });
-
-  let div = document.createElement("div");
-  div.classList.add("playAndSpectateButton");
-  div.style =
-    "display: flex; justify-content: space-between; align-items: center; height: 35px;";
-
-  div.appendChild(playBtn);
-  div.appendChild(spectate);
-
-  document.getElementsByClassName("menu__item")[0].appendChild(div);
-
+  
   let signOutBtn = document.getElementById("signOutBtn");
   let signInBtn = document.getElementById("signInBtn");
   signOutBtn.style.transition = ".3s";
-
-  let playAndSpectateButton = document.getElementsByClassName(
-    "playAndSpectateButton"
-  )[0];
-
-  if (signInBtn) {
-    signInBtn.insertAdjacentElement("beforebegin", playAndSpectateButton);
-  } else if (signOutBtn) {
-    signOutBtn.insertAdjacentElement("beforebegin", playAndSpectateButton);
-  }
-
-  function drawSpectateMenu() {
-    let SpectateMenu = document.createElement("div");
-    SpectateMenu.id = "spectateDiv";
-
-    let textContent = document.createElement("span");
-    textContent.innerHTML = "Press Q to change Spectate mode";
-    textContent.style = "color: #fff; text-align: center; display: flex;";
-    SpectateMenu.appendChild(textContent);
-
-    let buttonActions = document.createElement("div");
-    buttonActions.style = "display: flex";
-    SpectateMenu.appendChild(buttonActions);
-
-    let topButton = document.createElement("button");
-    topButton.textContent = "^";
-    topButton.style =
-      "margin: 10px 5px; color: #fff; background-color: #333; outline: none; border: none; border-radius: 10px; padding: 5px 10px";
-    buttonActions.appendChild(topButton);
-
-    let closeBtn = document.createElement("button");
-    closeBtn.textContent = "X";
-    closeBtn.style =
-      "margin: 10px 5px; color: #fff; background-color: #333; outline: none; border: none; border-radius: 10px; padding: 5px 10px;";
-    buttonActions.appendChild(closeBtn);
-
-    closeBtn.addEventListener("mouseover", function () {
-      closeBtn.style.transition = ".3s";
-      closeBtn.style.backgroundColor = "#444";
-    });
-
-    closeBtn.addEventListener("mouseout", function () {
-      closeBtn.style.transition = ".3s";
-      closeBtn.style.backgroundColor = "#333";
-    });
-
-    topButton.addEventListener("mouseover", function () {
-      topButton.style.transition = ".3s";
-      topButton.style.backgroundColor = "#444";
-    });
-
-    topButton.addEventListener("mouseout", function () {
-      topButton.style.transition = ".3s";
-      topButton.style.backgroundColor = "#333";
-    });
-
-    topButton.addEventListener("click", function () {
-      SpectateMenu.style.transition = ".3s";
-      if (topButton.textContent === "^") {
-        topButton.textContent = "v";
-        textContent.style.display = "none";
-        SpectateMenu.style.top = "0px";
-        SpectateMenu.style.borderBottomRightRadius = "50px";
-        SpectateMenu.style.borderBottomLeftRadius = "50px";
-      } else {
-        SpectateMenu.style.top = "20px";
-        topButton.textContent = "^";
-        textContent.style.display = "flex";
-        SpectateMenu.style.borderBottomRightRadius = "5px";
-        SpectateMenu.style.borderBottomLeftRadius = "5px";
-      }
-    });
-
-    const byId = (id) => document.querySelector(id);
-
-    closeBtn.addEventListener("click", function () {
-      byId("#menu-wrapper").style.display = "block";
-      byId("#left-menu").style.display = "block";
-      byId("#menu-links").style.display = "block";
-      byId("#right-menu").style.display = "block";
-      let sd = document.getElementById("spectateDiv");
-      sd.style.display = "none";
-      document.body.appendChild(SpectateMenu);
-    });
-  }
 
   function RespawnedMessage() {
     let messageSpan = "Respawned";
