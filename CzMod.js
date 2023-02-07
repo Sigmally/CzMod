@@ -1114,22 +1114,7 @@ setTimeout(() => {
       "this option is currently unavailable, Update the mod if the Developers fixed it."
     );
   });
-
-  let spectateBtnOption = document.getElementById("spectateBtn");
-  spectateBtnOption.addEventListener("click", () => {
-    let spectateBtn = document.getElementById("spectate-btn");
-    let playBtn = document.getElementById("play-btn");
-    if (spectateBtnOption.checked) {
-      spectateBtn.style.display = "flex";
-      spectateBtn.style.visibility = 'visible';
-      playBtn.style.width = "83%";
-    } else {
-      spectateBtn.style.display = "none";
-      spectateBtn.style.visibility = 'hidden';
-      playBtn.style.width = "100%";
-    }
-  });
-
+  
   function comingSoonMessage() {
     let messageSpan = "coming Soon!";
     const messageDiv = document.createElement("div");
