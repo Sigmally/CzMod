@@ -246,18 +246,23 @@ setTimeout(() => {
                     <button class="backBtn" id="SNTBACK-button"><img src="https://i.ibb.co/1sJxQXn/backIcon.png"><span>back</span></button>
                     <h2>Stylish name</h2>
                     <div class="SNT__inner">
-                    <!--
-                        <input type="text" placeholder="Save a name" id="saveNameInput">
-                        <button class="install-Bot-Btn">Save</button>
-                        -->
                         <span style="margin-top: 30px;">Stylish Name Websites:</span>
-
                         <div class="spanText">
                             <a href="https://www.stylishnamemaker.com" target="_blank" class="Btn"><input type="button" value="Stylishnamemaker" class="divBtn"/></a>
                             <a href="https://nickfinder.com" target="_blank" class="Btn"><input type="button" value="Nickfinder" class="divBtn"/></a>
                         </div>
-                        <span class="spanText">Saved Names: coming Soon!</span>
-                        <!--<div id="savedNames"></div>-->
+                        <div class="FunOption" style="margin-top: 10px">
+                          <span>confirm delete name</span>
+                          <input type="checkbox" checked id="confirmActive" class="checkbox">
+                        </div>
+                        <span class="spanText">Saved Names:</span>
+                        <div class="savedNames-container">
+                           <div class="saveNamesInputs">
+                               <input placeholder="Name" id="saveNameI">
+                               <button class="install-Bot-Btn" id="saveNameB" style="background: #222; margin-left: 10px;">Add</button>
+                           </div>
+                           <div id="savedNames"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="Option-tab" id="funOptions-tab">
@@ -432,6 +437,113 @@ setTimeout(() => {
     let skinCategoryInput = document.getElementById("skinCategoryInput").value;
     unsafeWindow.delSkin(skinIdInput, skinCategoryInput);
   });
+  
+          let savedNames = [];
+        let confirmActive = document.getElementById('confirmActive');
+
+        let savedNamesOutput = document.getElementById('savedNames');
+        let saveNameBtn = document.getElementById('saveNameB');
+        let saveNameInput = document.getElementById('saveNameI');
+
+        saveNameBtn.addEventListener('click', () => {
+            if (saveNameInput.value == '') {
+                console.log('empty name')
+            } else {
+                let nameDiv = document.createElement('div');
+                nameDiv.classList.add('NameDiv');
+
+                let name = document.createElement('label');
+                name.classList.add('NameLabel');
+                name.innerText = saveNameInput.value;
+
+                let delName = document.createElement('button');
+                delName.innerText = 'X';
+                delName.classList.add('delName');
+
+                name.addEventListener('click', () => {
+                    navigator.clipboard.writeText(name.innerText).then(() => {
+                        console.log('Copied to clipboard: ' + name.innerText);
+                    }, () => {
+                        console.error('Could not copy to clipboard.');
+                    });
+                });
+
+                delName.addEventListener('click', () => {
+                    if (confirmActive.checked) {
+                        if (confirm("Are you sure you want to delete the name '" + name.innerText + "'?")) {
+                            console.log('deleted name: ' + name.innerText)
+                            nameDiv.remove();
+
+                            let index = savedNames.indexOf(name.innerText);
+                            if (index > -1) {
+                                savedNames.splice(index, 1);
+                                localStorage.setItem("savedNames", JSON.stringify(savedNames));
+                            }
+                        }
+                    } else {
+                        console.log('deleted name: ' + name.innerText)
+                        nameDiv.remove();
+
+                        let index = savedNames.indexOf(name.innerText);
+                        if (index > -1) {
+                            savedNames.splice(index, 1);
+                            localStorage.setItem("savedNames", JSON.stringify(savedNames));
+                        }
+                    }
+                })
+
+                nameDiv.appendChild(name);
+                nameDiv.appendChild(delName);
+                savedNamesOutput.appendChild(nameDiv);
+
+                savedNames.push(saveNameInput.value);
+                localStorage.setItem("savedNames", JSON.stringify(savedNames));
+            }
+        });
+
+        if (localStorage.getItem("savedNames")) {
+            savedNames = JSON.parse(localStorage.getItem("savedNames"));
+            savedNames.forEach(name => {
+                let nameDiv = document.createElement('div');
+                nameDiv.classList.add('NameDiv');
+
+                let nameLabel = document.createElement('label');
+                nameLabel.classList.add('NameLabel');
+                nameLabel.innerText = name;
+
+                let delName = document.createElement('button');
+                delName.innerText = 'X';
+                delName.classList.add('delName');
+
+                nameLabel.addEventListener('click', () => {
+                    navigator.clipboard.writeText(nameLabel.innerText).then(() => {
+                        console.log('Copied to clipboard: ' + nameLabel.innerText);
+                    }, () => {
+                        console.error('Could not copy to clipboard.');
+                    });
+                });
+
+                delName.addEventListener('click', () => {
+                    if (confirmActive.checked) {
+                        if (confirm("Are you sure you want to delete the name '" + nameLabel.innerText + "'?")) {
+                            console.log('deleted name: ' + nameLabel.innerText)
+                            nameDiv.remove();
+                            savedNames = savedNames.filter(n => n !== nameLabel.innerText);
+                            localStorage.setItem("savedNames", JSON.stringify(savedNames));
+                        }
+                    } else {
+                        console.log('deleted name: ' + nameLabel.innerText)
+                        nameDiv.remove();
+                        savedNames = savedNames.filter(n => n !== nameLabel.innerText);
+                        localStorage.setItem("savedNames", JSON.stringify(savedNames));
+                    }
+                })
+
+                nameDiv.appendChild(nameLabel);
+                nameDiv.appendChild(delName);
+                savedNamesOutput.appendChild(nameDiv);
+            });
+        }
 
   let intervalId = null;
 
