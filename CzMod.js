@@ -438,7 +438,7 @@ setTimeout(() => {
     unsafeWindow.delSkin(skinIdInput, skinCategoryInput);
   });
   
-          let savedNames = [];
+         let savedNames = [];
         let confirmActive = document.getElementById('confirmActive');
 
         let savedNamesOutput = document.getElementById('savedNames');
@@ -449,6 +449,7 @@ setTimeout(() => {
             if (saveNameInput.value == '') {
                 console.log('empty name')
             } else {
+                saveNameInput.value = '';
                 let nameDiv = document.createElement('div');
                 nameDiv.classList.add('NameDiv');
 
