@@ -481,7 +481,7 @@ button {
     align-items: center;
     flex: auto;
     flex-direction: column;
-    margin: 5px 0px;
+    justify-content: center;
 }
 
 .Colors {
