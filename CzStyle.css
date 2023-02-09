@@ -731,3 +731,7 @@ button {
  max-height: 150px;
  flex-wrap: wrap;
 }
+
+.MO_label{
+font-weight: 500;
+}
