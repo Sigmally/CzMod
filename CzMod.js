@@ -166,9 +166,9 @@ setTimeout(() => {
                 <hr style="width: 95%; color: #BDBDBD;">
                 <div class="MenuOptions">
                     <div class="ChangeOpacity">
-                        <label>Mod Menu Opacity:</label>
+                        <label class="MO_label">Mod Menu Opacity:</label>
                         <input type="range" min="15" max="100" value="100" id="menuOpacity" class="slider">
-                        <label>button Opacity:</label>
+                        <label class="MO_label">button Opacity:</label>
                         <input type="range" min="15" max="100" value="100" id="buttonOpacity" class="slider">
                     </div>
                     <div class="ChangeMenuColor">
