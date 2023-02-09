@@ -392,7 +392,7 @@ setTimeout(() => {
                     <h2>Info about Cz Mod</h2>
                     <div class="OOT__inner">
                         <div class="otherOption">
-                            <span class="span__description">Version: 0.1.0 [BETA]</span>
+                            <span class="span__description">Version: 0.1.3 [BETA]</span>
                         </div>
                         <div class="otherOption">
                             <span class="span__description"><a href="#" style="text-decoration: none; color: #7878cf; cursor: pointer;">how to use CzMod</a></span>
