@@ -395,7 +395,7 @@ setTimeout(() => {
                             <span class="span__description">Version: 0.1.3 [BETA]</span>
                         </div>
                         <div class="otherOption">
-                            <span class="span__description"><a href="#" style="text-decoration: none; color: #7878cf; cursor: pointer;">how to use CzMod</a></span>
+                            <span class="span__description"><a onclick="alert('Youtube video come out soon!')" style="text-decoration: none; color: #7878cf; cursor: pointer;">how to use CzMod</a></span>
                         </div>
                         <div class="otherOption">
                             <span class="span__description">Creator: Cursed</span>
