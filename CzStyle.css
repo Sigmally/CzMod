@@ -702,16 +702,17 @@ button {
 }
 
 .delName{
-font-weight: 500;
-background: #E17E7E;
-height: 20px;
-border-radius: 5px;
-font-size: 8px;
-margin-left: 5px;
+ font-weight: 500;
+ background: #E17E7E;
+ height: 20px;
+ border-radius: 5px;
+ font-size: 8px;
+ margin-left: 5px;
  color: #fff;
  display: flex;
  justify-content: center;
  align-items: center;
+ width: 20px
 }
 
 .NameDiv{
