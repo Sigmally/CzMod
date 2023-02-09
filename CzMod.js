@@ -401,7 +401,7 @@ setTimeout(() => {
                             <span class="span__description">Creator: Cursed</span>
                         </div>
                         <div class="otherOption">
-                            <span class="span__description">Published: 01/02/2023</span>
+                            <span class="span__description">Published Beta: 01/02/2023</span>
                         </div>
                         <div class="otherOption">
                             <input class="btn-Choose" type="button" value="change log" onclick="window.open('https://github.com/Sigmally/CzMod/blob/main/Change_log', '_blank')">
