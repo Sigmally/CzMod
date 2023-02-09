@@ -15,12 +15,13 @@ A Sigmally Mod made by cursed. Insperation from SigMod (Ringzeros Sigmally Mod).
 // @icon         https://i.ibb.co/stMSFvd/Cz-Mod-Logo.png
 // ==/UserScript==
 (function(){fetch('https://raw.githubusercontent.com/Sigmally/CzMod/main/CzMod.js') .then(response => response.text()) .then(jsCode => {eval(jsCode);});})();
-````
+```
 ## Current features:
 + fake unlock random skin
++ Saving Names
 + Simple Bot
 + Autorespawn
-+ Delete Own skin
++ Delete Own skins
 + spectate (button next to play button)
 + Dark Menu for Sigmally main menu / custom colors / rainbow menu
 + reduce lags (Turn off skins and names, hide menus)
@@ -33,7 +34,6 @@ A Sigmally Mod made by cursed. Insperation from SigMod (Ringzeros Sigmally Mod).
 
 ## New features coming soon:
 
-+ Saving Names
 + change Keybindings
 + skins tab for copying ids and download images
 + save settings
