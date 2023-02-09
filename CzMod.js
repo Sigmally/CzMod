@@ -449,7 +449,9 @@ setTimeout(() => {
             if (saveNameInput.value == '') {
                 console.log('empty name')
             } else {
-                saveNameInput.value = '';
+                setTimeout(()=>{
+                  saveNameInput.value = '';
+                }, 10)
                 let nameDiv = document.createElement('div');
                 nameDiv.classList.add('NameDiv');
 
