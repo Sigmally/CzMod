@@ -404,7 +404,7 @@ setTimeout(() => {
                             <span class="span__description">Published: 01/02/2023</span>
                         </div>
                         <div class="otherOption">
-                            <input class="btn-Choose" type="button" value="change log" onclick="window.open('https://github.com/Sigmally/CzMod/blob/main/Changelog', '_blank')">
+                            <input class="btn-Choose" type="button" value="change log" onclick="window.open('https://github.com/Sigmally/CzMod/blob/main/Change_log', '_blank')">
                         </div>
                         <div class="otherOption">
                             <span class="span__description" style="text-align: center;">Credits: Ultra, Ringzer0; Insperation from Ringzer0's sigmally Mod</span>
