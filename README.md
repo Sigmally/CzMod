@@ -36,4 +36,4 @@ A Sigmally Mod made by cursed. Insperation from SigMod (Ringzeros Sigmally Mod).
 
 + change Keybindings
 + skins tab for copying ids and download images
-+ save settings
++ save general settings
