@@ -194,7 +194,7 @@ setTimeout(() => {
                             <div class="KeyBindingsOption">
                                 <span class="span__description">Enable Keybindings</span>
                                 <div class="checkbox-wrapper-8">
-                                    <input class="tgl tgl-skewed" id="enableKeyBindings" type="checkbox" />
+                                    <input class="tgl tgl-skewed" id="enableKeyBindings" type="checkbox" checked />
                                     <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="enableKeyBindings"></label>
                                 </div>
                             </div>
@@ -264,7 +264,7 @@ setTimeout(() => {
                             <a href="https://nickfinder.com" target="_blank" class="Btn"><input type="button" value="Nickfinder" class="divBtn"/></a>
                         </div>
                         <div class="FunOption" style="margin-top: 10px">
-                          <span>confirm delete name</span>
+                          <span class="span__description">confirm delete name</span>
                           <div class="checkbox-wrapper-8">
                              <input class="tgl tgl-skewed" id="confirmActive" type="checkbox" />
                              <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="confirmActive"></label>
