@@ -22,7 +22,6 @@ A Sigmally Mod made by cursed. Insperation from SigMod (Ringzeros Sigmally Mod).
 + Simple Bot
 + Autorespawn
 + Delete Own skins
-+ spectate (button next to play button)
 + Dark Menu for Sigmally main menu / custom colors / rainbow menu
 + reduce lags (Turn off skins and names, hide menus)
 + style your name
