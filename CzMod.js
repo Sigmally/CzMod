@@ -1224,25 +1224,21 @@ setTimeout(() => {
     });
   }
 
-  let ads = document.querySelectorAll(
-    "#text-block, #left_ad_block, #ad_bottom, .ad-block-left, .ad-block-right, .ad-block__inner"
-  );
+  let ads = document.querySelectorAll("#text-block, #left_ad_block, #ad_bottom, .ad-block-left, .ad-block-right, .ad-block__inner");
   ads.forEach((ad) => {
-    ad.classList.add("removeAds");
+    ad.classList.add("hidden");
   });
 
   let removeAds = document.getElementById("removeAdsCb");
-  removeAds.addEventListener("change", () => {
-    let ads = document.querySelectorAll(
-      "#text-block, #left_ad_block, #ad_bottom, .ad-block-left, .ad-block-right, .ad-block__inner"
-    );
+  removeAds.addEventListener("click", () => {
+    let ads = document.querySelectorAll("#text-block, #left_ad_block, #ad_bottom, .ad-block-left, .ad-block-right, .ad-block__inner");
     if (removeAds.checked) {
       ads.forEach((ad) => {
-        ad.classList.add("removeAds");
+        ad.classList.add("hidden");
       });
     } else {
       ads.forEach((ad) => {
-        ad.classList.remove("removeAds");
+        ad.classList.remove("hidden");
       });
     }
   });
