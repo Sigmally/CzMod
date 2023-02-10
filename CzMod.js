@@ -265,7 +265,7 @@ setTimeout(() => {
                         <div class="FunOption" style="margin-top: 10px">
                           <span class="span__description">confirm delete name</span>
                           <div class="checkbox-wrapper-8">
-                             <input class="tgl tgl-skewed" id="confirmActive" type="checkbox" />
+                             <input class="tgl tgl-skewed" id="confirmActive" type="checkbox" checked />
                              <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="confirmActive"></label>
                           </div>
                         </div>
