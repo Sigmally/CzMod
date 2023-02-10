@@ -372,8 +372,8 @@ setTimeout(() => {
                             <div class="otherOption">
                                 <span class="span__description">Remove Ads</span>
                                 <div class="checkbox-wrapper-8">
-                                   <input class="tgl tgl-skewed" id="removeAds" type="checkbox" checked />
-                                   <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="removeAds"></label>
+                                   <input class="tgl tgl-skewed" id="removeAdsCb" type="checkbox" checked />
+                                   <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="removeAdsCb"></label>
                                 </div>
                             </div>
                             <div class="otherOption">
@@ -1232,7 +1232,7 @@ setTimeout(() => {
     ad.classList.add("removeAds");
   });
 
-  let removeAds = document.getElementById("removeAds");
+  let removeAds = document.getElementById("removeAdsCb");
   removeAds.addEventListener("change", () => {
     let ads = document.querySelectorAll(
       "#text-block, #left_ad_block, #ad_bottom, .ad-block-left, .ad-block-right, .ad-block__inner"
