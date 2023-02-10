@@ -293,8 +293,8 @@ setTimeout(() => {
                         <div class="FunOption">
                             <span class="span__description">flashing background (game)</span>
                             <div class="checkbox-wrapper-8">
-                               <input class="tgl tgl-skewed" id="randomSkin" type="checkbox" />
-                               <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="randomSkin"></label>
+                               <input class="tgl tgl-skewed" id="flashBGCB" type="checkbox" />
+                               <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="flashBGCB"></label>
                             </div>
                         </div>
                         <div class="FunOption">
