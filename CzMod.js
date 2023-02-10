@@ -5,7 +5,6 @@ link.rel = "shortcut icon";
 link.href = "https://i.ibb.co/zS3Qty7/sigLogo.png";
 document.getElementsByTagName("head")[0].appendChild(link);
 
-document.title = "Sigmally - CzMod";
 fetch("https://raw.githubusercontent.com/Sigmally/CzMod/main/CzStyle.css")
   .then((response) => response.text())
   .then((cssText) => {
