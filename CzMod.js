@@ -193,7 +193,10 @@ setTimeout(() => {
                             <span class="alignCenter">Currently you can't change keybindings. <br> you will able to change them in the next updates</span>
                             <div class="KeyBindingsOption">
                                 <span class="span__description">Enable Keybindings</span>
-                                <input type="checkbox" class="checkbox" id="enableKeyBindings" checked>
+                                <div class="checkbox-wrapper-8">
+                                    <input class="tgl tgl-skewed" id="enableKeyBindings" type="checkbox" />
+                                    <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="enableKeyBindings"></label>
+                                </div>
                             </div>
                             <div class="KeyBindingsOption">
                                 <span class="span__description">Macros / fast feed</span>
@@ -230,15 +233,24 @@ setTimeout(() => {
                     <div class="RLT__inner">
                         <div class="reduceLagsOption">
                             <span class="span__description">Turn off all Skins</span>
-                            <input type="checkbox" id="showSkins" class="checkbox">
+                            <div class="checkbox-wrapper-8">
+                               <input class="tgl tgl-skewed" id="showSkins" type="checkbox" />
+                               <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="showSkins"></label>
+                            </div>
                         </div>
                         <div class="reduceLagsOption">
                             <span class="span__description">Turn off all Names</span>
-                            <input type="checkbox" id="showNames" class="checkbox">
+                            <div class="checkbox-wrapper-8">
+                               <input class="tgl tgl-skewed" id="showNames" type="checkbox" />
+                               <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="showNames"></label>
+                            </div>
                         </div>
                         <div class="reduceLagsOption">
                             <span class="span__description">Hide irrelevant menus</span>
-                            <input type="checkbox" id="HideRightAndLeftMenusBtn" class="checkbox">
+                            <div class="checkbox-wrapper-8">
+                               <input class="tgl tgl-skewed" id="HideRightAndLeftMenusBtn" type="checkbox" />
+                               <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="HideRightAndLeftMenusBtn"></label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -253,7 +265,10 @@ setTimeout(() => {
                         </div>
                         <div class="FunOption" style="margin-top: 10px">
                           <span>confirm delete name</span>
-                          <input type="checkbox" checked id="confirmActive" class="checkbox">
+                          <div class="checkbox-wrapper-8">
+                             <input class="tgl tgl-skewed" id="confirmActive" type="checkbox" />
+                             <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="confirmActive"></label>
+                          </div>
                         </div>
                         <span class="spanText">Saved Names:</span>
                         <div class="savedNames-container">
@@ -271,11 +286,17 @@ setTimeout(() => {
                     <div class="FOT__inner">
                         <div class="FunOption">
                             <span class="span__description">rainbow menu background</span>
-                            <input type="checkbox" id="rainbowMenu" class="checkbox">
+                            <div class="checkbox-wrapper-8">
+                               <input class="tgl tgl-skewed" id="rainbowMenu" type="checkbox" />
+                               <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="rainbowMenu"></label>
+                            </div>
                         </div>
                         <div class="FunOption">
                             <span class="span__description">flashing background (game)</span>
-                            <input type="checkbox" class="checkbox" id="flashBGCB">
+                            <div class="checkbox-wrapper-8">
+                               <input class="tgl tgl-skewed" id="randomSkin" type="checkbox" />
+                               <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="randomSkin"></label>
+                            </div>
                         </div>
                         <div class="FunOption">
                             <span class="span__description">fake unlock random coin skin</span>
@@ -350,12 +371,16 @@ setTimeout(() => {
                             </div>
                             <div class="otherOption">
                                 <span class="span__description">Remove Ads</span>
-                                <input type="checkbox" class="checkbox" id="removeAds" checked>
+                                <div class="checkbox-wrapper-8">
+                                   <input class="tgl tgl-skewed" id="removeAds" type="checkbox" checked />
+                                   <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="removeAds"></label>
+                                </div>
                             </div>
                             <div class="otherOption">
                                 <span class="span__description">Long nickname</span>
-                                <div class="alignCenter">
-                                    <input type="checkbox" class="checkbox" id="longNickname">
+                                <div class="checkbox-wrapper-8 alignCenter">
+                                   <input class="tgl tgl-skewed" id="longNickname" type="checkbox" />
+                                   <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="longNickname"></label>
                                 </div>
                             </div>
                         </div>
