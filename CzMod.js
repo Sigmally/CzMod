@@ -457,28 +457,24 @@ setTimeout(() => {
           window.dispatchEvent(new KeyboardEvent("keydown", feed));
           window.dispatchEvent(new KeyboardEvent("keyup", feed));
           for (var i = 0; i < amount; ++i) {
-            CzTimeouts.push(
-              setTimeout(function () {
-                window.dispatchEvent(new KeyboardEvent("keydown", feed));
-                window.dispatchEvent(new KeyboardEvent("keyup", feed));
-                window.dispatchEvent(new KeyboardEvent("keydown", feed));
-                window.dispatchEvent(new KeyboardEvent("keyup", feed));
-                window.dispatchEvent(new KeyboardEvent("keydown", feed));
-                window.dispatchEvent(new KeyboardEvent("keyup", feed));
-              }, i)
-            );
+             CzTimeouts.push(setTimeout(function() {
+               window.dispatchEvent(new KeyboardEvent('keydown', feed));
+               window.dispatchEvent(new KeyboardEvent('keyup', feed));
+               window.dispatchEvent(new KeyboardEvent('keydown', feed));
+               window.dispatchEvent(new KeyboardEvent('keyup', feed));
+               window.dispatchEvent(new KeyboardEvent('keydown', feed));
+               window.dispatchEvent(new KeyboardEvent('keyup', feed));
+             }, i ));
           }
           return;
         }
 
         if (e.key == CzSettings.keybindings.ds) {
-          for (let i = 0; i < 2; ++i) {
-            setTimeout(function () {
-              window.dispatchEvent(new KeyboardEvent("keydown", split));
-              window.dispatchEvent(new KeyboardEvent("keyup", split));
-            }, i + 1);
-          }
-          return;
+           window.dispatchEvent(new KeyboardEvent('keydown', split))
+           window.dispatchEvent(new KeyboardEvent('keyup', split))
+           window.dispatchEvent(new KeyboardEvent('keydown', split))
+           window.dispatchEvent(new KeyboardEvent('keyup', split))
+           return;
         }
 
         if (e.key == CzSettings.keybindings.ts) {
