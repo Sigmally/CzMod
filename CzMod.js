@@ -405,8 +405,8 @@ setTimeout(() => {
 
     const feed = {
         key: "w",
-        keyCode: 32,
-        which: 32,
+        keyCode: 87,
+        which: 87,
     };
 
     const split = {
@@ -449,7 +449,7 @@ setTimeout(() => {
                     location.reload();
                     localStorage.setItem("reloaded", "success");
                 }
-                if (e.key == CzSettings.keybindings.macros) {
+                if (e.key === CzSettings.keybindings.macros) {
                     if (!i_s) {
                         i_s = true;
                         CzMacros = setInterval(function() {
@@ -457,6 +457,7 @@ setTimeout(() => {
                             document.dispatchEvent(event);
                             event = new KeyboardEvent("keyup", feed);
                             document.dispatchEvent(event);
+                            console.log(event);
                         }, 20);
                     }
                 }
