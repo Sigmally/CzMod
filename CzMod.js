@@ -402,7 +402,7 @@ setTimeout(() => {
 
     let CzMacros;
     let i_s = false;
-    
+
     const feed = {
         key: "w",
         keyCode: 32,
@@ -417,9 +417,9 @@ setTimeout(() => {
         isTrusted: true,
         which: 32,
     };
-    
+
     window.addEventListener("keyup", (e) => {
-        if (event.key === CzSettings.keybindings.macros) {
+        if (e.key === CzSettings.keybindings.macros) {
             if (i_s) {
                 i_s = false;
                 clearInterval(CzMacros);
@@ -442,10 +442,10 @@ setTimeout(() => {
         if (e_dcb) {
             if (e_dcb.checked) {
                 en = true;
-                if (event.key === CzSettings.keybindings.tm) {
+                if (e.key === CzSettings.keybindings.tm) {
                     toggleMenu();
                 }
-                if (event.key === CzSettings.keybindings.r) {
+                if (e.key === CzSettings.keybindings.r) {
                     location.reload();
                     localStorage.setItem("reloaded", "success");
                 }
