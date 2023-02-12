@@ -274,7 +274,10 @@ setTimeout(() => {
                             <div class="otherOption autoRespawn">
                                 <span class="span__description">Auto Respawn</span>
                                 <div class="alignCenter">
-                                    <input type="checkbox" class="checkbox" id="autoRespawn">
+                                    <div class="checkbox-wrapper-8 alignCenter">
+                                       <input class="tgl tgl-skewed" id="autoRespawn" type="checkbox" />
+                                       <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="longNickname"></label>
+                                    </div>
                                     <input type="number" id="ARspeed" class="numberInput" value="1000" placeholder="Speed(ms)">
                                 </div>
                             </div>
@@ -300,7 +303,7 @@ setTimeout(() => {
                             <div class="otherOption">
                                 <span class="span__description">Long nickname</span>
                                 <div class="checkbox-wrapper-8 alignCenter">
-                                   <input class="tgl tgl-skewed" id="longNickname" type="checkbox" />
+                                   <input class="tgl tgl-skewed" id="longNickname" type="checkbox" checked/>
                                    <label class="tgl-btn" data-tg-off="OFF" data-tg-on="ON" for="longNickname"></label>
                                 </div>
                             </div>
