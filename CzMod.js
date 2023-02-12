@@ -407,6 +407,7 @@ setTimeout(() => {
         key: "w",
         keyCode: 32,
         which: 32,
+        bubbles: true
     };
 
     const split = {
@@ -457,7 +458,6 @@ setTimeout(() => {
                             document.dispatchEvent(event);
                             event = new KeyboardEvent("keyup", feed);
                             document.dispatchEvent(event);
-                            console.log(event);
                         }, 20);
                     }
                 }
