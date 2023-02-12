@@ -458,7 +458,7 @@ setTimeout(() => {
                             document.dispatchEvent(event);
                             event = new KeyboardEvent("keyup", feed);
                             document.dispatchEvent(event);
-                        }, 20);
+                        }, 35);
                     }
                 }
 
