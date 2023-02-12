@@ -18,13 +18,13 @@ fetch("https://raw.githubusercontent.com/Sigmally/CzMod/main/CzStyle.css")
     });
 
 setTimeout(() => {
-    const feed = {
+    let feed = {
         key: "w",
         keyCode: 32,
         which: 32,
     };
 
-    const split = {
+    let split = {
         keyCode: 32,
         code: "Space",
         cancelable: true,
