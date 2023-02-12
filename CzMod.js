@@ -405,8 +405,8 @@ setTimeout(() => {
 
     const feed = {
         key: "w",
-        keyCode: 87,
-        which: 87,
+        keyCode: 32,
+        which: 32,
     };
 
     const split = {
