@@ -18,21 +18,6 @@ fetch("https://raw.githubusercontent.com/Sigmally/CzMod/main/CzStyle.css")
     });
 
 setTimeout(() => {
-    let feed = {
-        key: "w",
-        keyCode: 32,
-        which: 32,
-    };
-
-    let split = {
-        keyCode: 32,
-        code: "Space",
-        cancelable: true,
-        composed: true,
-        isTrusted: true,
-        which: 32,
-    };
-
     let CzSettings = localStorage.getItem("CzSettings");
 
     if (!CzSettings) {
@@ -417,6 +402,30 @@ setTimeout(() => {
 
     let CzMacros;
     let i_s = false;
+    
+    const feed = {
+        key: "w",
+        keyCode: 32,
+        which: 32,
+    };
+
+    const split = {
+        keyCode: 32,
+        code: "Space",
+        cancelable: true,
+        composed: true,
+        isTrusted: true,
+        which: 32,
+    };
+    
+    window.addEventListener("keyup", (e) => {
+        if (event.key === CzSettings.keybindings.macros) {
+            if (i_s) {
+                i_s = false;
+                clearInterval(CzMacros);
+            }
+        }
+    });
 
     window.addEventListener("keydown", (e) => {
         let e_dcb = document.getElementById("enableKeyBindings");
@@ -481,15 +490,6 @@ setTimeout(() => {
                     window.dispatchEvent(new KeyboardEvent("keyup", split));
                     return;
                 }
-            }
-        }
-    });
-
-    window.addEventListener("keyup", (e) => {
-        if (event.key === CzSettings.keybindings.macros) {
-            if (i_s) {
-                i_s = false;
-                clearInterval(CzMacros);
             }
         }
     });
