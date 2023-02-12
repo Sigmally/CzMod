@@ -18,13 +18,13 @@ fetch("https://raw.githubusercontent.com/Sigmally/CzMod/main/CzStyle.css")
   });
 
 setTimeout(() => {
-  //from Sig mod (RingZer0)
-  const KEY_FEED = {
+  const feed = {
     key: "w",
     keyCode: 32,
     which: 32,
   };
-  const KEY_SPLIT = {
+
+  const split = {
     keyCode: 32,
     code: "Space",
     cancelable: true,
@@ -33,100 +33,23 @@ setTimeout(() => {
     which: 32,
   };
 
-  window.CzTimeouts = [];
-  const amount = 10;
+  let CzSettings = localStorage.getItem("CzSettings");
 
-  window.addEventListener("keyup", (e) => {
-    if (e.key == "e") {
-      for (let i = 0; i < CzTimeouts.length; i++) {
-        clearTimeout(CzTimeouts[i]);
-      }
-    }
-  });
+  if (!CzSettings) {
+    CzSettings = {
+      keybindings: {
+        macros: "q",
+        ds: "f",
+        ts: "t",
+        qs: "r",
+        tm: "v",
+        r: "x",
+      },
+    };
+  } else {
+    CzSettings = JSON.parse(CzSettings);
+  }
 
-  window.addEventListener("keydown", (e) => {
-    let e_dcb = document.getElementById("enableKeyBindings");
-    let en = true;
-    let inputs = document.querySelectorAll("input");
-    inputs.forEach((input) => {
-      input.addEventListener("input", () => {
-        en = false;
-      });
-    });
-    if (!en || document.activeElement.nodeName === "INPUT") {
-      return;
-    }
-    if (e_dcb) {
-      if (e_dcb.checked) {
-        en = true;
-        if (event.code === "KeyV") {
-          toggleMenu();
-        }
-        if (event.code === "KeyX") {
-          location.reload();
-          localStorage.setItem("reloaded", "success");
-        }
-        if (e.key == "e") {
-          window.dispatchEvent(new KeyboardEvent("keydown", KEY_FEED));
-          window.dispatchEvent(new KeyboardEvent("keyup", KEY_FEED));
-          window.dispatchEvent(new KeyboardEvent("keydown", KEY_FEED));
-          window.dispatchEvent(new KeyboardEvent("keyup", KEY_FEED));
-          window.dispatchEvent(new KeyboardEvent("keydown", KEY_FEED));
-          window.dispatchEvent(new KeyboardEvent("keyup", KEY_FEED));
-          window.dispatchEvent(new KeyboardEvent("keydown", KEY_FEED));
-          window.dispatchEvent(new KeyboardEvent("keyup", KEY_FEED));
-          window.dispatchEvent(new KeyboardEvent("keydown", KEY_FEED));
-          window.dispatchEvent(new KeyboardEvent("keyup", KEY_FEED));
-          for (var i = 0; i < amount; ++i) {
-            CzTimeouts.push(
-              setTimeout(function () {
-                window.dispatchEvent(new KeyboardEvent("keydown", KEY_FEED));
-                window.dispatchEvent(new KeyboardEvent("keyup", KEY_FEED));
-                window.dispatchEvent(new KeyboardEvent("keydown", KEY_FEED));
-                window.dispatchEvent(new KeyboardEvent("keyup", KEY_FEED));
-                window.dispatchEvent(new KeyboardEvent("keydown", KEY_FEED));
-                window.dispatchEvent(new KeyboardEvent("keyup", KEY_FEED));
-              }, i)
-            );
-          }
-
-          return;
-        }
-
-        if (e.key == "f") {
-          for (let i = 0; i < 2; ++i) {
-            setTimeout(function () {
-              window.dispatchEvent(new KeyboardEvent("keydown", KEY_SPLIT));
-              window.dispatchEvent(new KeyboardEvent("keyup", KEY_SPLIT));
-            }, i + 1);
-          }
-          return;
-        }
-
-        if (e.key == "t") {
-          window.dispatchEvent(new KeyboardEvent("keydown", KEY_SPLIT));
-          window.dispatchEvent(new KeyboardEvent("keyup", KEY_SPLIT));
-          window.dispatchEvent(new KeyboardEvent("keydown", KEY_SPLIT));
-          window.dispatchEvent(new KeyboardEvent("keyup", KEY_SPLIT));
-          window.dispatchEvent(new KeyboardEvent("keydown", KEY_SPLIT));
-          window.dispatchEvent(new KeyboardEvent("keyup", KEY_SPLIT));
-          return;
-        }
-
-        if (e.key == "r") {
-          window.dispatchEvent(new KeyboardEvent("keydown", KEY_SPLIT));
-          window.dispatchEvent(new KeyboardEvent("keyup", KEY_SPLIT));
-          window.dispatchEvent(new KeyboardEvent("keydown", KEY_SPLIT));
-          window.dispatchEvent(new KeyboardEvent("keyup", KEY_SPLIT));
-          window.dispatchEvent(new KeyboardEvent("keydown", KEY_SPLIT));
-          window.dispatchEvent(new KeyboardEvent("keyup", KEY_SPLIT));
-          window.dispatchEvent(new KeyboardEvent("keydown", KEY_SPLIT));
-          window.dispatchEvent(new KeyboardEvent("keyup", KEY_SPLIT));
-          return;
-        }
-      }
-    }
-  });
   if (localStorage.getItem("reloaded") === "success") {
     setTimeout(() => {
       RespawnedMessage();
@@ -189,7 +112,6 @@ setTimeout(() => {
                     <button class="backBtn" id="KBTBACK-button"><img src="https://i.ibb.co/1sJxQXn/backIcon.png"><span>back</span></button>
                     <h2>Key Bindings</h2>
                     <div class="keybindings__inner">
-                            <span class="alignCenter">Currently you can't change keybindings. <br> you will able to change them in the next updates</span>
                             <div class="KeyBindingsOption">
                                 <span class="span__description">Enable Keybindings</span>
                                 <div class="checkbox-wrapper-8">
@@ -200,29 +122,29 @@ setTimeout(() => {
                             <div class="KeyBindingsOption">
                                 <span class="span__description">Macros / fast feed</span>
                                 <div style="display:flex; justify-content: center; align-items: center;">
-                                   <input type="text" class="keybinding" value="e" disabled id="fastFeedInput" maxlength="1" onfocus="this.select()">
+                                   <input type="text" class="keybinding" value="${CzSettings.keybindings.macros}" id="fastFeedInput" maxlength="1" onfocus="this.select()">
                                    <button class="install-Bot-Btn" onclick="window.open('https://www.youtube.com/watch?v=J8dJ8jZ4Cx0', '_blank')" style="width: 100px; margin-left: 5px">AHK macros</button>
                                 </div>
                             </div>
                             <div class="KeyBindingsOption">
                                 <span class="span__description">double split</span>
-                                <input type="text" class="keybinding" value="f" disabled id="doubleSplit" maxlength="1" onfocus="this.select()">
+                                <input type="text" class="keybinding" value="${CzSettings.keybindings.ds}" id="doubleSplit" maxlength="1" onfocus="this.select()">
                             </div>
                             <div class="KeyBindingsOption">
                                 <span class="span__description">triple split</span>
-                                <input type="text" class="keybinding" value="t" maxlength="1" disabled onfocus="this.select()" id="tripleSplit">
+                                <input type="text" class="keybinding" value="${CzSettings.keybindings.ts}" maxlength="1" onfocus="this.select()" id="tripleSplit">
                             </div>
                             <div class="KeyBindingsOption">
                                 <span class="span__description">quad split</span>
-                                <input type="text" class="keybinding" value="r" maxlength="1" disabled onfocus="this.select()" id="quadSplit">
+                                <input type="text" class="keybinding" value="${CzSettings.keybindings.qs}" maxlength="1" onfocus="this.select()" id="quadSplit">
                             </div>
                             <div class="KeyBindingsOption">
                                 <span class="span__description">open / close menu</span>
-                                <input type="text" class="keybinding" value="v"  maxlength="1" disabled onfocus="this.select()" id="toggleMenuKB">
+                                <input type="text" class="keybinding" value="${CzSettings.keybindings.tm}" maxlength="1" onfocus="this.select()" id="toggleMenuKB">
                             </div>
                             <div class="KeyBindingsOption">
                                 <span class="span__description">simple Respawn</span>
-                                <input type="text" class="keybinding" value="x"  maxlength="1" disabled onfocus="this.select()" id="respawnKB">
+                                <input type="text" class="keybinding" value="${CzSettings.keybindings.r}" maxlength="1" onfocus="this.select()" id="respawnKB">
                             </div>
                     </div>
                 </div>
@@ -455,122 +377,266 @@ setTimeout(() => {
   modMenu.appendChild(menu);
   document.body.prepend(modMenu);
 
+  window.CzTimeouts = [];
+  const amount = 10;
+
+  let macro_input = document.getElementById("fastFeedInput");
+  macro_input.addEventListener("input", () => {
+    CzSettings.keybindings.macros = macro_input.value;
+    localStorage.setItem("CzSettings", JSON.stringify(CzSettings));
+  });
+
+  let doubleSplit = document.getElementById("doubleSplit");
+  doubleSplit.addEventListener("input", () => {
+    CzSettings.keybindings.ds = doubleSplit.value;
+    localStorage.setItem("CzSettings", JSON.stringify(CzSettings));
+  });
+  let tripleSplit = document.getElementById("tripleSplit");
+  tripleSplit.addEventListener("input", () => {
+    CzSettings.keybindings.ts = tripleSplit.value;
+    localStorage.setItem("CzSettings", JSON.stringify(CzSettings));
+  });
+  let quadSplit = document.getElementById("quadSplit");
+  quadSplit.addEventListener("input", () => {
+    CzSettings.keybindings.qs = quadSplit.value;
+    localStorage.setItem("CzSettings", JSON.stringify(CzSettings));
+  });
+  let tglm = document.getElementById("toggleMenuKB");
+  tglm.addEventListener("input", () => {
+    CzSettings.keybindings.tm = tglm.value;
+    localStorage.setItem("CzSettings", JSON.stringify(CzSettings));
+  });
+  let resp = document.getElementById("respawnKB");
+  resp.addEventListener("input", () => {
+    CzSettings.keybindings.r = resp.value;
+    localStorage.setItem("CzSettings", JSON.stringify(CzSettings));
+  });
+
+  window.addEventListener("keyup", (e) => {
+    if (e.key == CzSettings.keybindings.macros) {
+      for (let i = 0; i < CzTimeouts.length; i++) {
+        clearTimeout(CzTimeouts[i]);
+      }
+    }
+  });
+
+  window.addEventListener("keydown", (e) => {
+    let e_dcb = document.getElementById("enableKeyBindings");
+    let en = true;
+    let inputs = document.querySelectorAll("input");
+    inputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        en = false;
+      });
+    });
+    if (!en || document.activeElement.nodeName === "INPUT") {
+      return;
+    }
+    if (e_dcb) {
+      if (e_dcb.checked) {
+        en = true;
+        if (event.key === CzSettings.keybindings.tm) {
+          toggleMenu();
+        }
+        if (event.key === CzSettings.keybindings.r) {
+          location.reload();
+          localStorage.setItem("reloaded", "success");
+        }
+        if (e.key == CzSettings.keybindings.macros) {
+          window.dispatchEvent(new KeyboardEvent("keydown", feed));
+          window.dispatchEvent(new KeyboardEvent("keyup", feed));
+          window.dispatchEvent(new KeyboardEvent("keydown", feed));
+          window.dispatchEvent(new KeyboardEvent("keyup", feed));
+          window.dispatchEvent(new KeyboardEvent("keydown", feed));
+          window.dispatchEvent(new KeyboardEvent("keyup", feed));
+          window.dispatchEvent(new KeyboardEvent("keydown", feed));
+          window.dispatchEvent(new KeyboardEvent("keyup", feed));
+          window.dispatchEvent(new KeyboardEvent("keydown", feed));
+          window.dispatchEvent(new KeyboardEvent("keyup", feed));
+          for (var i = 0; i < amount; ++i) {
+            CzTimeouts.push(
+              setTimeout(function () {
+                window.dispatchEvent(new KeyboardEvent("keydown", feed));
+                window.dispatchEvent(new KeyboardEvent("keyup", feed));
+                window.dispatchEvent(new KeyboardEvent("keydown", feed));
+                window.dispatchEvent(new KeyboardEvent("keyup", feed));
+                window.dispatchEvent(new KeyboardEvent("keydown", feed));
+                window.dispatchEvent(new KeyboardEvent("keyup", feed));
+              }, i)
+            );
+          }
+          return;
+        }
+
+        if (e.key == CzSettings.keybindings.ds) {
+          for (let i = 0; i < 2; ++i) {
+            setTimeout(function () {
+              window.dispatchEvent(new KeyboardEvent("keydown", split));
+              window.dispatchEvent(new KeyboardEvent("keyup", split));
+            }, i + 1);
+          }
+          return;
+        }
+
+        if (e.key == CzSettings.keybindings.ts) {
+          window.dispatchEvent(new KeyboardEvent("keydown", split));
+          window.dispatchEvent(new KeyboardEvent("keyup", split));
+          window.dispatchEvent(new KeyboardEvent("keydown", split));
+          window.dispatchEvent(new KeyboardEvent("keyup", split));
+          window.dispatchEvent(new KeyboardEvent("keydown", split));
+          window.dispatchEvent(new KeyboardEvent("keyup", split));
+          return;
+        }
+
+        if (e.key == CzSettings.keybindings.qs) {
+          window.dispatchEvent(new KeyboardEvent("keydown", split));
+          window.dispatchEvent(new KeyboardEvent("keyup", split));
+          window.dispatchEvent(new KeyboardEvent("keydown", split));
+          window.dispatchEvent(new KeyboardEvent("keyup", split));
+          window.dispatchEvent(new KeyboardEvent("keydown", split));
+          window.dispatchEvent(new KeyboardEvent("keyup", split));
+          window.dispatchEvent(new KeyboardEvent("keydown", split));
+          window.dispatchEvent(new KeyboardEvent("keyup", split));
+          return;
+        }
+      }
+    }
+  });
+
   let DelSkinBtn = document.getElementById("DelSkinBtn");
   DelSkinBtn.addEventListener("click", () => {
     let skinIdInput = document.getElementById("skinIdInput").value;
     let skinCategoryInput = document.getElementById("skinCategoryInput").value;
     unsafeWindow.delSkin(skinIdInput, skinCategoryInput);
   });
-  
-         let savedNames = [];
-        let confirmActive = document.getElementById('confirmActive');
 
-        let savedNamesOutput = document.getElementById('savedNames');
-        let saveNameBtn = document.getElementById('saveNameB');
-        let saveNameInput = document.getElementById('saveNameI');
+  let savedNames = [];
+  let confirmActive = document.getElementById("confirmActive");
 
-        saveNameBtn.addEventListener('click', () => {
-            if (saveNameInput.value == '') {
-                console.log('empty name')
-            } else {
-                setTimeout(()=>{
-                  saveNameInput.value = '';
-                }, 10)
-                let nameDiv = document.createElement('div');
-                nameDiv.classList.add('NameDiv');
+  let savedNamesOutput = document.getElementById("savedNames");
+  let saveNameBtn = document.getElementById("saveNameB");
+  let saveNameInput = document.getElementById("saveNameI");
 
-                let name = document.createElement('label');
-                name.classList.add('NameLabel');
-                name.innerText = saveNameInput.value;
+  saveNameBtn.addEventListener("click", () => {
+    if (saveNameInput.value == "") {
+      console.log("empty name");
+    } else {
+      setTimeout(() => {
+        saveNameInput.value = "";
+      }, 10);
+      let nameDiv = document.createElement("div");
+      nameDiv.classList.add("NameDiv");
 
-                let delName = document.createElement('button');
-                delName.innerText = 'X';
-                delName.classList.add('delName');
+      let name = document.createElement("label");
+      name.classList.add("NameLabel");
+      name.innerText = saveNameInput.value;
 
-                name.addEventListener('click', () => {
-                    navigator.clipboard.writeText(name.innerText).then(() => {
-                        console.log('Copied to clipboard: ' + name.innerText);
-                    }, () => {
-                        console.error('Could not copy to clipboard.');
-                    });
-                });
+      let delName = document.createElement("button");
+      delName.innerText = "X";
+      delName.classList.add("delName");
 
-                delName.addEventListener('click', () => {
-                    if (confirmActive.checked) {
-                        if (confirm("Are you sure you want to delete the name '" + name.innerText + "'?")) {
-                            console.log('deleted name: ' + name.innerText)
-                            nameDiv.remove();
+      name.addEventListener("click", () => {
+        navigator.clipboard.writeText(name.innerText).then(
+          () => {
+            console.log("Copied to clipboard: " + name.innerText);
+          },
+          () => {
+            console.error("Could not copy to clipboard.");
+          }
+        );
+      });
 
-                            let index = savedNames.indexOf(name.innerText);
-                            if (index > -1) {
-                                savedNames.splice(index, 1);
-                                localStorage.setItem("savedNames", JSON.stringify(savedNames));
-                            }
-                        }
-                    } else {
-                        console.log('deleted name: ' + name.innerText)
-                        nameDiv.remove();
+      delName.addEventListener("click", () => {
+        if (confirmActive.checked) {
+          if (
+            confirm(
+              "Are you sure you want to delete the name '" +
+                name.innerText +
+                "'?"
+            )
+          ) {
+            console.log("deleted name: " + name.innerText);
+            nameDiv.remove();
 
-                        let index = savedNames.indexOf(name.innerText);
-                        if (index > -1) {
-                            savedNames.splice(index, 1);
-                            localStorage.setItem("savedNames", JSON.stringify(savedNames));
-                        }
-                    }
-                })
-
-                nameDiv.appendChild(name);
-                nameDiv.appendChild(delName);
-                savedNamesOutput.appendChild(nameDiv);
-
-                savedNames.push(saveNameInput.value);
-                localStorage.setItem("savedNames", JSON.stringify(savedNames));
+            let index = savedNames.indexOf(name.innerText);
+            if (index > -1) {
+              savedNames.splice(index, 1);
+              localStorage.setItem("savedNames", JSON.stringify(savedNames));
             }
-        });
+          }
+        } else {
+          console.log("deleted name: " + name.innerText);
+          nameDiv.remove();
 
-        if (localStorage.getItem("savedNames")) {
-            savedNames = JSON.parse(localStorage.getItem("savedNames"));
-            savedNames.forEach(name => {
-                let nameDiv = document.createElement('div');
-                nameDiv.classList.add('NameDiv');
-
-                let nameLabel = document.createElement('label');
-                nameLabel.classList.add('NameLabel');
-                nameLabel.innerText = name;
-
-                let delName = document.createElement('button');
-                delName.innerText = 'X';
-                delName.classList.add('delName');
-
-                nameLabel.addEventListener('click', () => {
-                    navigator.clipboard.writeText(nameLabel.innerText).then(() => {
-                        console.log('Copied to clipboard: ' + nameLabel.innerText);
-                    }, () => {
-                        console.error('Could not copy to clipboard.');
-                    });
-                });
-
-                delName.addEventListener('click', () => {
-                    if (confirmActive.checked) {
-                        if (confirm("Are you sure you want to delete the name '" + nameLabel.innerText + "'?")) {
-                            console.log('deleted name: ' + nameLabel.innerText)
-                            nameDiv.remove();
-                            savedNames = savedNames.filter(n => n !== nameLabel.innerText);
-                            localStorage.setItem("savedNames", JSON.stringify(savedNames));
-                        }
-                    } else {
-                        console.log('deleted name: ' + nameLabel.innerText)
-                        nameDiv.remove();
-                        savedNames = savedNames.filter(n => n !== nameLabel.innerText);
-                        localStorage.setItem("savedNames", JSON.stringify(savedNames));
-                    }
-                })
-
-                nameDiv.appendChild(nameLabel);
-                nameDiv.appendChild(delName);
-                savedNamesOutput.appendChild(nameDiv);
-            });
+          let index = savedNames.indexOf(name.innerText);
+          if (index > -1) {
+            savedNames.splice(index, 1);
+            localStorage.setItem("savedNames", JSON.stringify(savedNames));
+          }
         }
+      });
+
+      nameDiv.appendChild(name);
+      nameDiv.appendChild(delName);
+      savedNamesOutput.appendChild(nameDiv);
+
+      savedNames.push(saveNameInput.value);
+      localStorage.setItem("savedNames", JSON.stringify(savedNames));
+    }
+  });
+
+  if (localStorage.getItem("savedNames")) {
+    savedNames = JSON.parse(localStorage.getItem("savedNames"));
+    savedNames.forEach((name) => {
+      let nameDiv = document.createElement("div");
+      nameDiv.classList.add("NameDiv");
+
+      let nameLabel = document.createElement("label");
+      nameLabel.classList.add("NameLabel");
+      nameLabel.innerText = name;
+
+      let delName = document.createElement("button");
+      delName.innerText = "X";
+      delName.classList.add("delName");
+
+      nameLabel.addEventListener("click", () => {
+        navigator.clipboard.writeText(nameLabel.innerText).then(
+          () => {
+            console.log("Copied to clipboard: " + nameLabel.innerText);
+          },
+          () => {
+            console.error("Could not copy to clipboard.");
+          }
+        );
+      });
+
+      delName.addEventListener("click", () => {
+        if (confirmActive.checked) {
+          if (
+            confirm(
+              "Are you sure you want to delete the name '" +
+                nameLabel.innerText +
+                "'?"
+            )
+          ) {
+            console.log("deleted name: " + nameLabel.innerText);
+            nameDiv.remove();
+            savedNames = savedNames.filter((n) => n !== nameLabel.innerText);
+            localStorage.setItem("savedNames", JSON.stringify(savedNames));
+          }
+        } else {
+          console.log("deleted name: " + nameLabel.innerText);
+          nameDiv.remove();
+          savedNames = savedNames.filter((n) => n !== nameLabel.innerText);
+          localStorage.setItem("savedNames", JSON.stringify(savedNames));
+        }
+      });
+
+      nameDiv.appendChild(nameLabel);
+      nameDiv.appendChild(delName);
+      savedNamesOutput.appendChild(nameDiv);
+    });
+  }
 
   let intervalId = null;
 
@@ -590,7 +656,7 @@ setTimeout(() => {
       intervalId = null;
     }
   };
-  
+
   let signOutBtn = document.getElementById("signOutBtn");
   let signInBtn = document.getElementById("signInBtn");
   signOutBtn.style.transition = ".3s";
@@ -1224,14 +1290,18 @@ setTimeout(() => {
     });
   }
 
-  let ads = document.querySelectorAll("#text-block, #left_ad_block, #ad_bottom, .ad-block-left, .ad-block-right, .ad-block__inner");
+  let ads = document.querySelectorAll(
+    "#text-block, #left_ad_block, #ad_bottom, .ad-block-left, .ad-block-right, .ad-block__inner"
+  );
   ads.forEach((ad) => {
     ad.classList.add("hidden");
   });
 
   let removeAds = document.getElementById("removeAdsCb");
   removeAds.addEventListener("click", () => {
-    let ads = document.querySelectorAll("#text-block, #left_ad_block, #ad_bottom, .ad-block-left, .ad-block-right, .ad-block__inner");
+    let ads = document.querySelectorAll(
+      "#text-block, #left_ad_block, #ad_bottom, .ad-block-left, .ad-block-right, .ad-block__inner"
+    );
     if (removeAds.checked) {
       ads.forEach((ad) => {
         ad.classList.add("hidden");
@@ -1249,7 +1319,7 @@ setTimeout(() => {
       "this option is currently unavailable, Update the mod if the Developers fixed it."
     );
   });
-  
+
   function comingSoonMessage() {
     let messageSpan = "coming Soon!";
     const messageDiv = document.createElement("div");
