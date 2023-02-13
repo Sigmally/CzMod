@@ -1313,27 +1313,4 @@ setTimeout(() => {
             "this option is currently unavailable, Update the mod if the Developers fixed it."
         );
     });
-
-    function comingSoonMessage() {
-        let messageSpan = "coming Soon!";
-        const messageDiv = document.createElement("div");
-        messageDiv.style = "display: flex; opacity: 0;";
-        setTimeout(() => {
-            messageDiv.style =
-                "display: flex; opacity: 1; transition: .3s; margin-top: 20px;";
-        }, 50);
-        messageDiv.classList.add("comingSoonDiv");
-        messageDiv.innerHTML = `
-             <div class="CSD">
-               <span class="ComingSoonSpan">${messageSpan}</span>
-             </div>
-           `;
-        setTimeout(function() {
-            messageDiv.style = "opacity: 0; transition: .3s; margin-top: 0px;";
-            setTimeout(function() {
-                messageDiv.style.display = "none";
-            }, 300);
-        }, 2000);
-        document.body.appendChild(messageDiv);
-    }
 }, 500);
