@@ -1,61 +1,61 @@
 let link =
-    document.querySelector("link[rel*='icon']") || document.createElement("link");
+  document.querySelector("link[rel*='icon']") || document.createElement("link");
 link.type = "image/x-icon";
 link.rel = "shortcut icon";
 link.href = "https://i.ibb.co/zS3Qty7/sigLogo.png";
 document.getElementsByTagName("head")[0].appendChild(link);
 
 fetch("https://raw.githubusercontent.com/Sigmally/CzMod/main/CzStyle.css")
-    .then((response) => response.text())
-    .then((cssText) => {
-        const styleElement = document.createElement("style");
-        styleElement.type = "text/css";
-        styleElement.appendChild(document.createTextNode(cssText));
-        document.head.appendChild(styleElement);
-    })
-    .catch((error) => {
-        console.error("Failed to load CSS: ", error);
-    });
+  .then((response) => response.text())
+  .then((cssText) => {
+    const styleElement = document.createElement("style");
+    styleElement.type = "text/css";
+    styleElement.appendChild(document.createTextNode(cssText));
+    document.head.appendChild(styleElement);
+  })
+  .catch((error) => {
+    console.error("Failed to load CSS: ", error);
+  });
 
 setTimeout(() => {
-    let CzSettings = localStorage.getItem("CzSettings");
+  let CzSettings = localStorage.getItem("CzSettings");
 
-    if (!CzSettings) {
-        CzSettings = {
-            keybindings: {
-                macros: "q",
-                ds: "f",
-                ts: "t",
-                qs: "r",
-                tm: "v",
-                r: "x",
-            },
-        };
-    } else {
-        CzSettings = JSON.parse(CzSettings);
-    }
+  if (!CzSettings) {
+    CzSettings = {
+      keybindings: {
+        macros: "q",
+        ds: "f",
+        ts: "t",
+        qs: "r",
+        tm: "v",
+        r: "x",
+      },
+    };
+  } else {
+    CzSettings = JSON.parse(CzSettings);
+  }
 
-    if (localStorage.getItem("reloaded") === "success") {
-        setTimeout(() => {
-            RespawnedMessage();
-            let playBtn = document.getElementById("play-btn");
-            setTimeout(() => {
-                playBtn.click();
-            }, 500);
-        }, 1000);
-        localStorage.removeItem("reloaded");
-    }
+  if (localStorage.getItem("reloaded") === "success") {
+    setTimeout(() => {
+      RespawnedMessage();
+      let playBtn = document.getElementById("play-btn");
+      setTimeout(() => {
+        playBtn.click();
+      }, 500);
+    }, 1000);
+    localStorage.removeItem("reloaded");
+  }
 
-    let modMenu = document.createElement("div");
-    modMenu.classList.add("modMenuOverlay");
-    modMenu.innerHTML = `
+  let modMenu = document.createElement("div");
+  modMenu.classList.add("modMenuOverlay");
+  modMenu.innerHTML = `
     <button class="button open-btn" id="open">Open</button>
     `;
 
-    let menu = document.createElement("div");
-    menu.style = "display: none; opacity: 0;";
-    menu.id = "Modmenu";
-    menu.innerHTML = `
+  let menu = document.createElement("div");
+  menu.style = "display: none; opacity: 0;";
+  menu.id = "Modmenu";
+  menu.innerHTML = `
   <div class="border-div"></div>
 <div class="top-menu">
                 <img src="https://i.ibb.co/stMSFvd/Cz-Mod-Logo.png" class="Logo" draggable="false">
@@ -362,729 +362,729 @@ setTimeout(() => {
                 </div>
             </div>
     `;
-    modMenu.appendChild(menu);
-    document.body.prepend(modMenu);
+  modMenu.appendChild(menu);
+  document.body.prepend(modMenu);
 
-    window.CzTimeouts = [];
-    const amount = 10;
+  window.CzTimeouts = [];
+  const amount = 10;
 
-    let macro_input = document.getElementById("fastFeedInput");
-    macro_input.addEventListener("input", () => {
-        CzSettings.keybindings.macros = macro_input.value;
-        localStorage.setItem("CzSettings", JSON.stringify(CzSettings));
+  let macro_input = document.getElementById("fastFeedInput");
+  macro_input.addEventListener("input", () => {
+    CzSettings.keybindings.macros = macro_input.value;
+    localStorage.setItem("CzSettings", JSON.stringify(CzSettings));
+  });
+
+  let doubleSplit = document.getElementById("doubleSplit");
+  doubleSplit.addEventListener("input", () => {
+    CzSettings.keybindings.ds = doubleSplit.value;
+    localStorage.setItem("CzSettings", JSON.stringify(CzSettings));
+  });
+  let tripleSplit = document.getElementById("tripleSplit");
+  tripleSplit.addEventListener("input", () => {
+    CzSettings.keybindings.ts = tripleSplit.value;
+    localStorage.setItem("CzSettings", JSON.stringify(CzSettings));
+  });
+  let quadSplit = document.getElementById("quadSplit");
+  quadSplit.addEventListener("input", () => {
+    CzSettings.keybindings.qs = quadSplit.value;
+    localStorage.setItem("CzSettings", JSON.stringify(CzSettings));
+  });
+  let tglm = document.getElementById("toggleMenuKB");
+  tglm.addEventListener("input", () => {
+    CzSettings.keybindings.tm = tglm.value;
+    localStorage.setItem("CzSettings", JSON.stringify(CzSettings));
+  });
+  let resp = document.getElementById("respawnKB");
+  resp.addEventListener("input", () => {
+    CzSettings.keybindings.r = resp.value;
+    localStorage.setItem("CzSettings", JSON.stringify(CzSettings));
+  });
+
+  let CzMacros;
+  let i_s = false;
+
+  const feed = {
+    key: "w",
+    keyCode: 32,
+    which: 32,
+    bubbles: true,
+  };
+
+  const split = {
+    keyCode: 32,
+    code: "Space",
+    cancelable: true,
+    composed: true,
+    isTrusted: true,
+    which: 32,
+  };
+
+  window.addEventListener("keyup", (e) => {
+    if (e.key === CzSettings.keybindings.macros) {
+      if (i_s) {
+        i_s = false;
+        clearInterval(CzMacros);
+      }
+    }
+  });
+
+  window.addEventListener("keydown", (e) => {
+    let e_dcb = document.getElementById("enableKeyBindings");
+    let en = true;
+    let inputs = document.querySelectorAll("input");
+    inputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        en = false;
+      });
     });
-
-    let doubleSplit = document.getElementById("doubleSplit");
-    doubleSplit.addEventListener("input", () => {
-        CzSettings.keybindings.ds = doubleSplit.value;
-        localStorage.setItem("CzSettings", JSON.stringify(CzSettings));
-    });
-    let tripleSplit = document.getElementById("tripleSplit");
-    tripleSplit.addEventListener("input", () => {
-        CzSettings.keybindings.ts = tripleSplit.value;
-        localStorage.setItem("CzSettings", JSON.stringify(CzSettings));
-    });
-    let quadSplit = document.getElementById("quadSplit");
-    quadSplit.addEventListener("input", () => {
-        CzSettings.keybindings.qs = quadSplit.value;
-        localStorage.setItem("CzSettings", JSON.stringify(CzSettings));
-    });
-    let tglm = document.getElementById("toggleMenuKB");
-    tglm.addEventListener("input", () => {
-        CzSettings.keybindings.tm = tglm.value;
-        localStorage.setItem("CzSettings", JSON.stringify(CzSettings));
-    });
-    let resp = document.getElementById("respawnKB");
-    resp.addEventListener("input", () => {
-        CzSettings.keybindings.r = resp.value;
-        localStorage.setItem("CzSettings", JSON.stringify(CzSettings));
-    });
-
-    let CzMacros;
-    let i_s = false;
-
-    const feed = {
-        key: "w",
-        keyCode: 32,
-        which: 32,
-        bubbles: true
-    };
-
-    const split = {
-        keyCode: 32,
-        code: "Space",
-        cancelable: true,
-        composed: true,
-        isTrusted: true,
-        which: 32,
-    };
-
-    window.addEventListener("keyup", (e) => {
+    if (!en || document.activeElement.nodeName === "INPUT") {
+      return;
+    }
+    if (e_dcb) {
+      if (e_dcb.checked) {
+        en = true;
+        if (e.key === CzSettings.keybindings.tm) {
+          toggleMenu();
+        }
+        if (e.key === CzSettings.keybindings.r) {
+          location.reload();
+          localStorage.setItem("reloaded", "success");
+        }
         if (e.key === CzSettings.keybindings.macros) {
-            if (i_s) {
-                i_s = false;
-                clearInterval(CzMacros);
+          if (!i_s) {
+            i_s = true;
+            CzMacros = setInterval(function () {
+              let event = new KeyboardEvent("keydown", feed);
+              document.dispatchEvent(event);
+              event = new KeyboardEvent("keyup", feed);
+              document.dispatchEvent(event);
+            }, 50);
+          }
+        }
+
+        if (e.key == CzSettings.keybindings.ds) {
+          window.dispatchEvent(new KeyboardEvent("keydown", split));
+          window.dispatchEvent(new KeyboardEvent("keyup", split));
+          window.dispatchEvent(new KeyboardEvent("keydown", split));
+          window.dispatchEvent(new KeyboardEvent("keyup", split));
+          return;
+        }
+
+        if (e.key == CzSettings.keybindings.ts) {
+          window.dispatchEvent(new KeyboardEvent("keydown", split));
+          window.dispatchEvent(new KeyboardEvent("keyup", split));
+          window.dispatchEvent(new KeyboardEvent("keydown", split));
+          window.dispatchEvent(new KeyboardEvent("keyup", split));
+          window.dispatchEvent(new KeyboardEvent("keydown", split));
+          window.dispatchEvent(new KeyboardEvent("keyup", split));
+          return;
+        }
+
+        if (e.key == CzSettings.keybindings.qs) {
+          window.dispatchEvent(new KeyboardEvent("keydown", split));
+          window.dispatchEvent(new KeyboardEvent("keyup", split));
+          window.dispatchEvent(new KeyboardEvent("keydown", split));
+          window.dispatchEvent(new KeyboardEvent("keyup", split));
+          window.dispatchEvent(new KeyboardEvent("keydown", split));
+          window.dispatchEvent(new KeyboardEvent("keyup", split));
+          window.dispatchEvent(new KeyboardEvent("keydown", split));
+          window.dispatchEvent(new KeyboardEvent("keyup", split));
+          return;
+        }
+      }
+    }
+  });
+
+  let DelSkinBtn = document.getElementById("DelSkinBtn");
+  DelSkinBtn.addEventListener("click", () => {
+    let skinIdInput = document.getElementById("skinIdInput").value;
+    let skinCategoryInput = document.getElementById("skinCategoryInput").value;
+    unsafeWindow.delSkin(skinIdInput, skinCategoryInput);
+  });
+
+  let savedNames = [];
+  let confirmActive = document.getElementById("confirmActive");
+
+  let savedNamesOutput = document.getElementById("savedNames");
+  let saveNameBtn = document.getElementById("saveNameB");
+  let saveNameInput = document.getElementById("saveNameI");
+
+  saveNameBtn.addEventListener("click", () => {
+    if (saveNameInput.value == "") {
+      console.log("empty name");
+    } else {
+      setTimeout(() => {
+        saveNameInput.value = "";
+      }, 10);
+      let nameDiv = document.createElement("div");
+      nameDiv.classList.add("NameDiv");
+
+      let name = document.createElement("label");
+      name.classList.add("NameLabel");
+      name.innerText = saveNameInput.value;
+
+      let delName = document.createElement("button");
+      delName.innerText = "X";
+      delName.classList.add("delName");
+
+      name.addEventListener("click", () => {
+        navigator.clipboard.writeText(name.innerText).then(
+          () => {
+            console.log("Copied to clipboard: " + name.innerText);
+          },
+          () => {
+            console.error("Could not copy to clipboard.");
+          }
+        );
+      });
+
+      delName.addEventListener("click", () => {
+        if (confirmActive.checked) {
+          if (
+            confirm(
+              "Are you sure you want to delete the name '" +
+                name.innerText +
+                "'?"
+            )
+          ) {
+            console.log("deleted name: " + name.innerText);
+            nameDiv.remove();
+
+            let index = savedNames.indexOf(name.innerText);
+            if (index > -1) {
+              savedNames.splice(index, 1);
+              localStorage.setItem("savedNames", JSON.stringify(savedNames));
             }
-        }
-    });
-
-    window.addEventListener("keydown", (e) => {
-        let e_dcb = document.getElementById("enableKeyBindings");
-        let en = true;
-        let inputs = document.querySelectorAll("input");
-        inputs.forEach((input) => {
-            input.addEventListener("input", () => {
-                en = false;
-            });
-        });
-        if (!en || document.activeElement.nodeName === "INPUT") {
-            return;
-        }
-        if (e_dcb) {
-            if (e_dcb.checked) {
-                en = true;
-                if (e.key === CzSettings.keybindings.tm) {
-                    toggleMenu();
-                }
-                if (e.key === CzSettings.keybindings.r) {
-                    location.reload();
-                    localStorage.setItem("reloaded", "success");
-                }
-                if (e.key === CzSettings.keybindings.macros) {
-                    if (!i_s) {
-                        i_s = true;
-                        CzMacros = setInterval(function() {
-                            let event = new KeyboardEvent("keydown", feed);
-                            document.dispatchEvent(event);
-                            event = new KeyboardEvent("keyup", feed);
-                            document.dispatchEvent(event);
-                        }, 50);
-                    }
-                }
-
-                if (e.key == CzSettings.keybindings.ds) {
-                    window.dispatchEvent(new KeyboardEvent('keydown', split))
-                    window.dispatchEvent(new KeyboardEvent('keyup', split))
-                    window.dispatchEvent(new KeyboardEvent('keydown', split))
-                    window.dispatchEvent(new KeyboardEvent('keyup', split))
-                    return;
-                }
-
-                if (e.key == CzSettings.keybindings.ts) {
-                    window.dispatchEvent(new KeyboardEvent("keydown", split));
-                    window.dispatchEvent(new KeyboardEvent("keyup", split));
-                    window.dispatchEvent(new KeyboardEvent("keydown", split));
-                    window.dispatchEvent(new KeyboardEvent("keyup", split));
-                    window.dispatchEvent(new KeyboardEvent("keydown", split));
-                    window.dispatchEvent(new KeyboardEvent("keyup", split));
-                    return;
-                }
-
-                if (e.key == CzSettings.keybindings.qs) {
-                    window.dispatchEvent(new KeyboardEvent("keydown", split));
-                    window.dispatchEvent(new KeyboardEvent("keyup", split));
-                    window.dispatchEvent(new KeyboardEvent("keydown", split));
-                    window.dispatchEvent(new KeyboardEvent("keyup", split));
-                    window.dispatchEvent(new KeyboardEvent("keydown", split));
-                    window.dispatchEvent(new KeyboardEvent("keyup", split));
-                    window.dispatchEvent(new KeyboardEvent("keydown", split));
-                    window.dispatchEvent(new KeyboardEvent("keyup", split));
-                    return;
-                }
-            }
-        }
-    });
-
-    let DelSkinBtn = document.getElementById("DelSkinBtn");
-    DelSkinBtn.addEventListener("click", () => {
-        let skinIdInput = document.getElementById("skinIdInput").value;
-        let skinCategoryInput = document.getElementById("skinCategoryInput").value;
-        unsafeWindow.delSkin(skinIdInput, skinCategoryInput);
-    });
-
-    let savedNames = [];
-    let confirmActive = document.getElementById("confirmActive");
-
-    let savedNamesOutput = document.getElementById("savedNames");
-    let saveNameBtn = document.getElementById("saveNameB");
-    let saveNameInput = document.getElementById("saveNameI");
-
-    saveNameBtn.addEventListener("click", () => {
-        if (saveNameInput.value == "") {
-            console.log("empty name");
+          }
         } else {
-            setTimeout(() => {
-                saveNameInput.value = "";
-            }, 10);
-            let nameDiv = document.createElement("div");
-            nameDiv.classList.add("NameDiv");
+          console.log("deleted name: " + name.innerText);
+          nameDiv.remove();
 
-            let name = document.createElement("label");
-            name.classList.add("NameLabel");
-            name.innerText = saveNameInput.value;
-
-            let delName = document.createElement("button");
-            delName.innerText = "X";
-            delName.classList.add("delName");
-
-            name.addEventListener("click", () => {
-                navigator.clipboard.writeText(name.innerText).then(
-                    () => {
-                        console.log("Copied to clipboard: " + name.innerText);
-                    },
-                    () => {
-                        console.error("Could not copy to clipboard.");
-                    }
-                );
-            });
-
-            delName.addEventListener("click", () => {
-                if (confirmActive.checked) {
-                    if (
-                        confirm(
-                            "Are you sure you want to delete the name '" +
-                            name.innerText +
-                            "'?"
-                        )
-                    ) {
-                        console.log("deleted name: " + name.innerText);
-                        nameDiv.remove();
-
-                        let index = savedNames.indexOf(name.innerText);
-                        if (index > -1) {
-                            savedNames.splice(index, 1);
-                            localStorage.setItem("savedNames", JSON.stringify(savedNames));
-                        }
-                    }
-                } else {
-                    console.log("deleted name: " + name.innerText);
-                    nameDiv.remove();
-
-                    let index = savedNames.indexOf(name.innerText);
-                    if (index > -1) {
-                        savedNames.splice(index, 1);
-                        localStorage.setItem("savedNames", JSON.stringify(savedNames));
-                    }
-                }
-            });
-
-            nameDiv.appendChild(name);
-            nameDiv.appendChild(delName);
-            savedNamesOutput.appendChild(nameDiv);
-
-            savedNames.push(saveNameInput.value);
+          let index = savedNames.indexOf(name.innerText);
+          if (index > -1) {
+            savedNames.splice(index, 1);
             localStorage.setItem("savedNames", JSON.stringify(savedNames));
+          }
         }
-    });
+      });
 
-    if (localStorage.getItem("savedNames")) {
-        savedNames = JSON.parse(localStorage.getItem("savedNames"));
-        savedNames.forEach((name) => {
-            let nameDiv = document.createElement("div");
-            nameDiv.classList.add("NameDiv");
+      nameDiv.appendChild(name);
+      nameDiv.appendChild(delName);
+      savedNamesOutput.appendChild(nameDiv);
 
-            let nameLabel = document.createElement("label");
-            nameLabel.classList.add("NameLabel");
-            nameLabel.innerText = name;
-
-            let delName = document.createElement("button");
-            delName.innerText = "X";
-            delName.classList.add("delName");
-
-            nameLabel.addEventListener("click", () => {
-                navigator.clipboard.writeText(nameLabel.innerText).then(
-                    () => {
-                        console.log("Copied to clipboard: " + nameLabel.innerText);
-                    },
-                    () => {
-                        console.error("Could not copy to clipboard.");
-                    }
-                );
-            });
-
-            delName.addEventListener("click", () => {
-                if (confirmActive.checked) {
-                    if (
-                        confirm(
-                            "Are you sure you want to delete the name '" +
-                            nameLabel.innerText +
-                            "'?"
-                        )
-                    ) {
-                        console.log("deleted name: " + nameLabel.innerText);
-                        nameDiv.remove();
-                        savedNames = savedNames.filter((n) => n !== nameLabel.innerText);
-                        localStorage.setItem("savedNames", JSON.stringify(savedNames));
-                    }
-                } else {
-                    console.log("deleted name: " + nameLabel.innerText);
-                    nameDiv.remove();
-                    savedNames = savedNames.filter((n) => n !== nameLabel.innerText);
-                    localStorage.setItem("savedNames", JSON.stringify(savedNames));
-                }
-            });
-
-            nameDiv.appendChild(nameLabel);
-            nameDiv.appendChild(delName);
-            savedNamesOutput.appendChild(nameDiv);
-        });
+      savedNames.push(saveNameInput.value);
+      localStorage.setItem("savedNames", JSON.stringify(savedNames));
     }
+  });
 
-    let intervalId = null;
+  if (localStorage.getItem("savedNames")) {
+    savedNames = JSON.parse(localStorage.getItem("savedNames"));
+    savedNames.forEach((name) => {
+      let nameDiv = document.createElement("div");
+      nameDiv.classList.add("NameDiv");
 
-    function AutoRespawn() {
-        document.getElementById("continue_button").click();
-        document.getElementById("play-btn").click();
-        unsafeWindow.hideDeathScreenx;
-    }
-    let speed = document.getElementById("ARspeed");
-    let ARcb = document.getElementById("autoRespawn");
-    ARcb.onchange = function() {
-        if (this.checked) {
-            let delay = speed.value;
-            intervalId = setInterval(AutoRespawn, delay);
+      let nameLabel = document.createElement("label");
+      nameLabel.classList.add("NameLabel");
+      nameLabel.innerText = name;
+
+      let delName = document.createElement("button");
+      delName.innerText = "X";
+      delName.classList.add("delName");
+
+      nameLabel.addEventListener("click", () => {
+        navigator.clipboard.writeText(nameLabel.innerText).then(
+          () => {
+            console.log("Copied to clipboard: " + nameLabel.innerText);
+          },
+          () => {
+            console.error("Could not copy to clipboard.");
+          }
+        );
+      });
+
+      delName.addEventListener("click", () => {
+        if (confirmActive.checked) {
+          if (
+            confirm(
+              "Are you sure you want to delete the name '" +
+                nameLabel.innerText +
+                "'?"
+            )
+          ) {
+            console.log("deleted name: " + nameLabel.innerText);
+            nameDiv.remove();
+            savedNames = savedNames.filter((n) => n !== nameLabel.innerText);
+            localStorage.setItem("savedNames", JSON.stringify(savedNames));
+          }
         } else {
-            clearInterval(intervalId);
-            intervalId = null;
+          console.log("deleted name: " + nameLabel.innerText);
+          nameDiv.remove();
+          savedNames = savedNames.filter((n) => n !== nameLabel.innerText);
+          localStorage.setItem("savedNames", JSON.stringify(savedNames));
         }
-    };
+      });
 
-    let signOutBtn = document.getElementById("signOutBtn");
-    let signInBtn = document.getElementById("signInBtn");
-    signOutBtn.style.transition = ".3s";
+      nameDiv.appendChild(nameLabel);
+      nameDiv.appendChild(delName);
+      savedNamesOutput.appendChild(nameDiv);
+    });
+  }
 
-    function RespawnedMessage() {
-        let messageSpan = "Respawned";
-        const messageDiv = document.createElement("div");
-        messageDiv.style = "display: flex; opacity: 0;";
-        setTimeout(() => {
-            messageDiv.style =
-                "display: flex; opacity: 1; transition: .3s; top: 0px;";
-        }, 50);
-        messageDiv.classList.add("comingSoonDiv");
-        messageDiv.innerHTML = `
+  let intervalId = null;
+
+  function AutoRespawn() {
+    document.getElementById("continue_button").click();
+    document.getElementById("play-btn").click();
+    unsafeWindow.hideDeathScreenx;
+  }
+  let speed = document.getElementById("ARspeed");
+  let ARcb = document.getElementById("autoRespawn");
+  ARcb.onchange = function () {
+    if (this.checked) {
+      let delay = speed.value;
+      intervalId = setInterval(AutoRespawn, delay);
+    } else {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+  };
+
+  let signOutBtn = document.getElementById("signOutBtn");
+  let signInBtn = document.getElementById("signInBtn");
+  signOutBtn.style.transition = ".3s";
+
+  function RespawnedMessage() {
+    let messageSpan = "Respawned";
+    const messageDiv = document.createElement("div");
+    messageDiv.style = "display: flex; opacity: 0;";
+    setTimeout(() => {
+      messageDiv.style =
+        "display: flex; opacity: 1; transition: .3s; top: 0px;";
+    }, 50);
+    messageDiv.classList.add("comingSoonDiv");
+    messageDiv.innerHTML = `
         <div class="CSD">
             <span class="ComingSoonSpan" style="color: #fff;">${messageSpan}</span>
         </div>
     `;
-        setTimeout(function() {
-            messageDiv.style = "opacity: 0; transition: .3s; top: 20px;";
-            setTimeout(function() {
-                messageDiv.style.display = "none";
-            }, 300);
-        }, 2000);
-        document.body.appendChild(messageDiv);
-    }
+    setTimeout(function () {
+      messageDiv.style = "opacity: 0; transition: .3s; top: 20px;";
+      setTimeout(function () {
+        messageDiv.style.display = "none";
+      }, 300);
+    }, 2000);
+    document.body.appendChild(messageDiv);
+  }
 
+  let open = document.getElementById("open");
+  let isOpen = false;
+  open.addEventListener("click", () => {
+    toggleMenu();
+    if (isOpen) {
+      open.innerHTML = "Open";
+      isOpen = false;
+    } else {
+      open.innerHTML = "Close";
+      isOpen = true;
+    }
+  });
+
+  let closeMenuBtn = document.getElementById("closeMenuBtn");
+  closeMenuBtn.addEventListener("click", () => {
+    smoothClose();
+    if (menu) {
+      if (isOpen) {
+        open.innerHTML = "Close";
+        isOpen = true;
+      } else {
+        open.innerHTML = "Open";
+        isOpen = false;
+      }
+    }
+  });
+
+  function toggleMenu() {
+    let modMenuOverlay = document.querySelector(".modMenuOverlay");
+    let menu = document.getElementById("Modmenu");
     let open = document.getElementById("open");
-    let isOpen = false;
-    open.addEventListener("click", () => {
-        toggleMenu();
-        if (isOpen) {
-            open.innerHTML = "Open";
-            isOpen = false;
-        } else {
-            open.innerHTML = "Close";
-            isOpen = true;
-        }
-    });
-
-    let closeMenuBtn = document.getElementById("closeMenuBtn");
-    closeMenuBtn.addEventListener("click", () => {
+    if (menu) {
+      if (isOpen) {
         smoothClose();
-        if (menu) {
-            if (isOpen) {
-                open.innerHTML = "Close";
-                isOpen = true;
-            } else {
-                open.innerHTML = "Open";
-                isOpen = false;
-            }
-        }
-    });
-
-    function toggleMenu() {
-        let modMenuOverlay = document.querySelector(".modMenuOverlay");
-        let menu = document.getElementById("Modmenu");
-        let open = document.getElementById("open");
-        if (menu) {
-            if (isOpen) {
-                smoothClose();
-                modMenuOverlay.style.pointerEvents = "none";
-                open.innerHTML = "Open";
-                // let CzSettings = {}
-                // localStorage.setItem('CzSettings', JSON.stringify(CzSettings));
-            } else {
-                smoothOpen();
-                modMenuOverlay.style.pointerEvents = "auto";
-                open.innerHTML = "Close";
-            }
-        }
-    }
-
-    function smoothOpen() {
-        let menu = document.getElementById("Modmenu");
-        if (menu) {
-            menu.style.display = "flex";
-            setTimeout(function() {
-                menu.style = "opacity: 1; transition: .3s;";
-                isOpen = true;
-            }, 1);
-        }
-    }
-
-    function smoothClose() {
-        let keybindingInputs = document.querySelector(".keybinding");
-        keybindingInputs.value;
-
-        let menu = document.getElementById("Modmenu");
-        let modMenuOverlay = document.querySelector(".modMenuOverlay");
         modMenuOverlay.style.pointerEvents = "none";
-        if (menu) {
-            menu.style = "opacity: 0; transition: .3s;";
-            setTimeout(function() {
-                let open = document.getElementById("open");
-                open.innerHTML = "Open";
-                menu.style.display = "none";
-                isOpen = false;
-            }, 200);
-        }
+        open.innerHTML = "Open";
+        // let CzSettings = {}
+        // localStorage.setItem('CzSettings', JSON.stringify(CzSettings));
+      } else {
+        smoothOpen();
+        modMenuOverlay.style.pointerEvents = "auto";
+        open.innerHTML = "Close";
+      }
     }
+  }
 
-    let MenuopctBtn = document.getElementById("menuOpacity");
-    if (MenuopctBtn) {
-        MenuopctBtn.oninput = function() {
-            menuOpacityChange(this.value / 100, this);
-        };
+  function smoothOpen() {
+    let menu = document.getElementById("Modmenu");
+    if (menu) {
+      menu.style.display = "flex";
+      setTimeout(function () {
+        menu.style = "opacity: 1; transition: .3s;";
+        isOpen = true;
+      }, 1);
     }
-    let ButtonopctBtn = document.getElementById("buttonOpacity");
-    if (ButtonopctBtn) {
-        ButtonopctBtn.oninput = function() {
-            ButtonOpacityChange(this.value / 100, this);
-        };
+  }
+
+  function smoothClose() {
+    let keybindingInputs = document.querySelector(".keybinding");
+    keybindingInputs.value;
+
+    let menu = document.getElementById("Modmenu");
+    let modMenuOverlay = document.querySelector(".modMenuOverlay");
+    modMenuOverlay.style.pointerEvents = "none";
+    if (menu) {
+      menu.style = "opacity: 0; transition: .3s;";
+      setTimeout(function () {
+        let open = document.getElementById("open");
+        open.innerHTML = "Open";
+        menu.style.display = "none";
+        isOpen = false;
+      }, 200);
     }
+  }
 
-    let installBotBtn = document.getElementById("install-bot");
-    installBotBtn.addEventListener("click", () => {
-        window.open(
-            "https://greasyfork.org/scripts/459040-czbot-sigmally-bot",
-            "_blank"
-        );
-    });
+  let MenuopctBtn = document.getElementById("menuOpacity");
+  if (MenuopctBtn) {
+    MenuopctBtn.oninput = function () {
+      menuOpacityChange(this.value / 100, this);
+    };
+  }
+  let ButtonopctBtn = document.getElementById("buttonOpacity");
+  if (ButtonopctBtn) {
+    ButtonopctBtn.oninput = function () {
+      ButtonOpacityChange(this.value / 100, this);
+    };
+  }
 
-    function menuOpacityChange(val, elem) {
-        let menu = document.getElementById("Modmenu");
-        if (menu) {
-            menu.style.opacity = val;
-        }
-    }
-
-    function ButtonOpacityChange(val, elem) {
-        let Btn = document.getElementById("open");
-        Btn.style.opacity = val;
-    }
-
-    let hide = false;
-    let HideRightAndLeftMenusBtn = document.getElementById(
-        "HideRightAndLeftMenusBtn"
+  let installBotBtn = document.getElementById("install-bot");
+  installBotBtn.addEventListener("click", () => {
+    window.open(
+      "https://greasyfork.org/scripts/459040-czbot-sigmally-bot",
+      "_blank"
     );
-    HideRightAndLeftMenusBtn.addEventListener("click", () => {
-        let rightMenu = document.getElementById("right-menu");
-        let leftMenu = document.getElementById("left-menu");
-        let rightMenuQS = document.querySelector(".right-menu");
-        let links = document.getElementById("menu-links");
-        let bottom_ad = document.getElementById("ad_bottom");
+  });
 
-        if (!hide) {
-            rightMenu.style.opacity = 0;
-            leftMenu.style.opacity = 0;
-            rightMenuQS.style.opacity = 0;
-            links.style.opacity = 0;
-            bottom_ad.style.opacity = 0;
-            rightMenu.style.pointerEvents = "none";
-            leftMenu.style.pointerEvents = "none";
-            hide = true;
-        } else {
-            rightMenu.style.opacity = "1";
-            leftMenu.style.opacity = "1";
-            rightMenuQS.style.opacity = "1";
-            links.style.opacity = "1";
-            rightMenu.style.pointerEvents = "auto";
-            leftMenu.style.pointerEvents = "auto";
-            hide = false;
-        }
+  function menuOpacityChange(val, elem) {
+    let menu = document.getElementById("Modmenu");
+    if (menu) {
+      menu.style.opacity = val;
+    }
+  }
+
+  function ButtonOpacityChange(val, elem) {
+    let Btn = document.getElementById("open");
+    Btn.style.opacity = val;
+  }
+
+  let hide = false;
+  let HideRightAndLeftMenusBtn = document.getElementById(
+    "HideRightAndLeftMenusBtn"
+  );
+  HideRightAndLeftMenusBtn.addEventListener("click", () => {
+    let rightMenu = document.getElementById("right-menu");
+    let leftMenu = document.getElementById("left-menu");
+    let rightMenuQS = document.querySelector(".right-menu");
+    let links = document.getElementById("menu-links");
+    let bottom_ad = document.getElementById("ad_bottom");
+
+    if (!hide) {
+      rightMenu.style.opacity = 0;
+      leftMenu.style.opacity = 0;
+      rightMenuQS.style.opacity = 0;
+      links.style.opacity = 0;
+      bottom_ad.style.opacity = 0;
+      rightMenu.style.pointerEvents = "none";
+      leftMenu.style.pointerEvents = "none";
+      hide = true;
+    } else {
+      rightMenu.style.opacity = "1";
+      leftMenu.style.opacity = "1";
+      rightMenuQS.style.opacity = "1";
+      links.style.opacity = "1";
+      rightMenu.style.pointerEvents = "auto";
+      leftMenu.style.pointerEvents = "auto";
+      hide = false;
+    }
+  });
+
+  let showNamesCB = document.getElementById("showNames");
+  let showNames = true;
+  showNamesCB.addEventListener("click", () => {
+    if (!showNames) {
+      unsafeWindow.settings.showNames = true;
+      showNames = true;
+    } else {
+      unsafeWindow.settings.showNames = false;
+      showNames = false;
+    }
+  });
+  let showSkinsCB = document.getElementById("showSkins");
+  let showSkins = true;
+  showSkinsCB.addEventListener("click", () => {
+    if (showSkins == true) {
+      unsafeWindow.settings.showSkins = false;
+      showSkins = false;
+    } else {
+      unsafeWindow.settings.showSkins = true;
+      showSkins = true;
+    }
+  });
+
+  let menuColorPicker = document.getElementById("ColorPicker1");
+  let textColorPicker = document.getElementById("ColorPicker2");
+
+  menuColorPicker.oninput = () => {
+    let menu = document.getElementById("menu");
+    let rightMenu = document.querySelector(".top-users__inner");
+    let leftMenu = document.getElementById("left-menu");
+    let linksMenu = document.querySelector(".menu-links");
+    let deathScreen = document.querySelector(".menu--stats-mode");
+
+    menu.style.backgroundColor = menuColorPicker.value;
+    rightMenu.style.backgroundColor = menuColorPicker.value;
+    leftMenu.style.backgroundColor = menuColorPicker.value;
+    linksMenu.style.backgroundColor = menuColorPicker.value;
+    deathScreen.style.backgroundColor = menuColorPicker.value;
+  };
+
+  textColorPicker.oninput = () => {
+    let bodyInner = document.querySelector(".body__inner");
+    if (bodyInner) {
+      let elements = bodyInner.querySelectorAll("label, span, td, h1, th, h3");
+      elements.forEach((element) => {
+        element.style.color = textColorPicker.value;
+      });
+    }
+  };
+
+  let RLT = document.getElementById("reduceLags-tab");
+  let SNT = document.getElementById("stylishName-tab");
+  let FOT = document.getElementById("funOptions-tab");
+  let OOT = document.getElementById("otherOptions-tab");
+  let SMT = document.getElementById("SocialMedia-tab");
+  let IT = document.getElementById("Info-tab");
+  let ST = document.getElementById("skins-tab");
+  let KBT = document.getElementById("keybinds-tab");
+
+  let buttons = document.querySelectorAll("button");
+
+  buttons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      let id = button.getAttribute("id");
+      if (id === "KeyBindingsButton") {
+        KBT.style = "display: block; opacity: 0;";
+        setTimeout(function () {
+          KBT.style = "display: block; opacity: 1; transition: .3s;";
+        }, 100);
+      } else if (id === "reduceLagsButton") {
+        RLT.style = "display: block; opacity: 0;";
+        setTimeout(function () {
+          RLT.style = "display: block; opacity: 1; transition: .3s;";
+        }, 100);
+      } else if (id === "StylishNameButton") {
+        SNT.style = "display: block; opacity: 0;";
+        setTimeout(function () {
+          SNT.style = "display: block; opacity: 1; transition: .3s;";
+        }, 100);
+      } else if (id === "funOptionsButton") {
+        FOT.style = "display: block; opacity: 0;";
+        setTimeout(function () {
+          FOT.style = "display: block; opacity: 1; transition: .3s;";
+        }, 100);
+      } else if (id === "othersButton") {
+        OOT.style = "display: block; opacity: 0;";
+        setTimeout(function () {
+          OOT.style = "display: block; opacity: 1; transition: .3s;";
+        }, 100);
+      } else if (id === "socialMediaButton") {
+        SMT.style = "display: block; opacity: 0;";
+        setTimeout(function () {
+          SMT.style = "display: block; opacity: 1; transition: .3s;";
+        }, 100);
+      } else if (id === "infoButton") {
+        IT.style = "display: block; opacity: 0;";
+        setTimeout(function () {
+          IT.style = "display: block; opacity: 1; transition: .3s;";
+        }, 100);
+      } else if (id === "skinsButton") {
+        ST.style = "display: block; opacity: 0;";
+        setTimeout(function () {
+          ST.style = "display: block; opacity: 1; transition: .3s;";
+        }, 100);
+      } else if (id === "KBTBACK-button") {
+        KBT.style = "display: block; opacity: 0; transition: .3s;";
+        setTimeout(function () {
+          KBT.style = "display: none; opacity: 0;";
+        }, 100);
+      } else if (id === "RLTBACK-button") {
+        RLT.style = "display: block; opacity: 0; transition: .3s;";
+        setTimeout(function () {
+          RLT.style = "display: none; opacity: 0;";
+        }, 100);
+      } else if (id === "SNTBACK-button") {
+        SNT.style = "display: block; opacity: 0; transition: .3s;";
+        setTimeout(function () {
+          SNT.style = "display: none; opacity: 0;";
+        }, 100);
+      } else if (id === "FOTBACK-button") {
+        FOT.style = "display: block; opacity: 0; transition: .3s;";
+        setTimeout(function () {
+          FOT.style = "display: none; opacity: 0;";
+        }, 100);
+      } else if (id === "OOTBACK-button") {
+        OOT.style = "display: block; opacity: 0; transition: .3s;";
+        setTimeout(function () {
+          OOT.style = "display: none; opacity: 0;";
+        }, 100);
+      } else if (id === "SMTBACK-button") {
+        SMT.style = "display: block; opacity: 0; transition: .3s;";
+        setTimeout(function () {
+          SMT.style = "display: none; opacity: 0;";
+        }, 100);
+      } else if (id === "ITB-button") {
+        IT.style = "display: block; opacity: 0; transition: .3s;";
+        setTimeout(function () {
+          IT.style = "display: none; opacity: 0;";
+        }, 100);
+      } else if (id === "STBACK-button") {
+        ST.style = "display: block; opacity: 0; transition: .3s;";
+        setTimeout(function () {
+          ST.style = "display: none; opacity: 0;";
+        }, 100);
+      }
     });
+  });
+  const skinLinks = {
+    premium: [
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Art.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Bile.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Boo.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Brandywine.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Captain.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Cara.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Carlton.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Derek.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Fungus.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/George.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Gesner.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Jack.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Josh.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Maya.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Michael.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Needleman.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Peep.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Peterson.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Smitty.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Spike.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Squibbles.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Sulley.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Terri.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Valentine.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Waternoose.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Worthington.png",
+      "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Yeti.png",
+    ],
+  };
+  let randomSkin = document.getElementById("randomSkin");
+  randomSkin.addEventListener("click", () => {
+    let skin = document.getElementById("js-skin-select-icon");
+    let randomIndex = Math.floor(Math.random() * skinLinks.premium.length);
+    let randomImageLink = skinLinks.premium[randomIndex];
+    skin.style = `background-image: url("${randomImageLink}");`;
+  });
 
-    let showNamesCB = document.getElementById("showNames");
-    let showNames = true;
-    showNamesCB.addEventListener("click", () => {
-        if (!showNames) {
-            unsafeWindow.settings.showNames = true;
-            showNames = true;
-        } else {
-            unsafeWindow.settings.showNames = false;
-            showNames = false;
-        }
-    });
-    let showSkinsCB = document.getElementById("showSkins");
-    let showSkins = true;
-    showSkinsCB.addEventListener("click", () => {
-        if (showSkins == true) {
-            unsafeWindow.settings.showSkins = false;
-            showSkins = false;
-        } else {
-            unsafeWindow.settings.showSkins = true;
-            showSkins = true;
-        }
-    });
+  const skinFileInput = document.getElementById("skinFile");
+  const skinSelectIcon = document.getElementById("js-skin-select-icon");
+  let skinFileLabel = document.getElementById("skinFileLabel");
 
-    let menuColorPicker = document.getElementById("ColorPicker1");
-    let textColorPicker = document.getElementById("ColorPicker2");
+  skinFileInput.addEventListener("change", () => {
+    const file = skinFileInput.files[0];
+    const allowedTypes = ["image/png", "image/jpeg", "image/gif"];
 
-    menuColorPicker.oninput = () => {
-        let menu = document.getElementById("menu");
-        let rightMenu = document.querySelector(".top-users__inner");
-        let leftMenu = document.getElementById("left-menu");
-        let linksMenu = document.querySelector(".menu-links");
-        let deathScreen = document.querySelector(".menu--stats-mode");
-
-        menu.style.backgroundColor = menuColorPicker.value;
-        rightMenu.style.backgroundColor = menuColorPicker.value;
-        leftMenu.style.backgroundColor = menuColorPicker.value;
-        linksMenu.style.backgroundColor = menuColorPicker.value;
-        deathScreen.style.backgroundColor = menuColorPicker.value;
-    };
-
-    textColorPicker.oninput = () => {
-        let bodyInner = document.querySelector(".body__inner");
-        if (bodyInner) {
-            let elements = bodyInner.querySelectorAll("label, span, td, h1, th, h3");
-            elements.forEach((element) => {
-                element.style.color = textColorPicker.value;
-            });
-        }
-    };
-
-    let RLT = document.getElementById("reduceLags-tab");
-    let SNT = document.getElementById("stylishName-tab");
-    let FOT = document.getElementById("funOptions-tab");
-    let OOT = document.getElementById("otherOptions-tab");
-    let SMT = document.getElementById("SocialMedia-tab");
-    let IT = document.getElementById("Info-tab");
-    let ST = document.getElementById("skins-tab");
-    let KBT = document.getElementById("keybinds-tab");
-
-    let buttons = document.querySelectorAll("button");
-
-    buttons.forEach(function(button) {
-        button.addEventListener("click", function() {
-            let id = button.getAttribute("id");
-            if (id === "KeyBindingsButton") {
-                KBT.style = "display: block; opacity: 0;";
-                setTimeout(function() {
-                    KBT.style = "display: block; opacity: 1; transition: .3s;";
-                }, 100);
-            } else if (id === "reduceLagsButton") {
-                RLT.style = "display: block; opacity: 0;";
-                setTimeout(function() {
-                    RLT.style = "display: block; opacity: 1; transition: .3s;";
-                }, 100);
-            } else if (id === "StylishNameButton") {
-                SNT.style = "display: block; opacity: 0;";
-                setTimeout(function() {
-                    SNT.style = "display: block; opacity: 1; transition: .3s;";
-                }, 100);
-            } else if (id === "funOptionsButton") {
-                FOT.style = "display: block; opacity: 0;";
-                setTimeout(function() {
-                    FOT.style = "display: block; opacity: 1; transition: .3s;";
-                }, 100);
-            } else if (id === "othersButton") {
-                OOT.style = "display: block; opacity: 0;";
-                setTimeout(function() {
-                    OOT.style = "display: block; opacity: 1; transition: .3s;";
-                }, 100);
-            } else if (id === "socialMediaButton") {
-                SMT.style = "display: block; opacity: 0;";
-                setTimeout(function() {
-                    SMT.style = "display: block; opacity: 1; transition: .3s;";
-                }, 100);
-            } else if (id === "infoButton") {
-                IT.style = "display: block; opacity: 0;";
-                setTimeout(function() {
-                    IT.style = "display: block; opacity: 1; transition: .3s;";
-                }, 100);
-            } else if (id === "skinsButton") {
-                ST.style = "display: block; opacity: 0;";
-                setTimeout(function() {
-                    ST.style = "display: block; opacity: 1; transition: .3s;";
-                }, 100);
-            } else if (id === "KBTBACK-button") {
-                KBT.style = "display: block; opacity: 0; transition: .3s;";
-                setTimeout(function() {
-                    KBT.style = "display: none; opacity: 0;";
-                }, 100);
-            } else if (id === "RLTBACK-button") {
-                RLT.style = "display: block; opacity: 0; transition: .3s;";
-                setTimeout(function() {
-                    RLT.style = "display: none; opacity: 0;";
-                }, 100);
-            } else if (id === "SNTBACK-button") {
-                SNT.style = "display: block; opacity: 0; transition: .3s;";
-                setTimeout(function() {
-                    SNT.style = "display: none; opacity: 0;";
-                }, 100);
-            } else if (id === "FOTBACK-button") {
-                FOT.style = "display: block; opacity: 0; transition: .3s;";
-                setTimeout(function() {
-                    FOT.style = "display: none; opacity: 0;";
-                }, 100);
-            } else if (id === "OOTBACK-button") {
-                OOT.style = "display: block; opacity: 0; transition: .3s;";
-                setTimeout(function() {
-                    OOT.style = "display: none; opacity: 0;";
-                }, 100);
-            } else if (id === "SMTBACK-button") {
-                SMT.style = "display: block; opacity: 0; transition: .3s;";
-                setTimeout(function() {
-                    SMT.style = "display: none; opacity: 0;";
-                }, 100);
-            } else if (id === "ITB-button") {
-                IT.style = "display: block; opacity: 0; transition: .3s;";
-                setTimeout(function() {
-                    IT.style = "display: none; opacity: 0;";
-                }, 100);
-            } else if (id === "STBACK-button") {
-                ST.style = "display: block; opacity: 0; transition: .3s;";
-                setTimeout(function() {
-                    ST.style = "display: none; opacity: 0;";
-                }, 100);
-            }
-        });
-    });
-    const skinLinks = {
-        premium: [
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Art.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Bile.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Boo.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Brandywine.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Captain.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Cara.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Carlton.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Derek.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Fungus.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/George.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Gesner.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Jack.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Josh.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Maya.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Michael.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Needleman.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Peep.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Peterson.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Smitty.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Spike.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Squibbles.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Sulley.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Terri.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Valentine.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Waternoose.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Worthington.png",
-            "https://raw.githubusercontent.com/Sigmally/CzMod/main/SigmallySkins/Yeti.png",
-        ],
-    };
-    let randomSkin = document.getElementById("randomSkin");
-    randomSkin.addEventListener("click", () => {
-        let skin = document.getElementById("js-skin-select-icon");
-        let randomIndex = Math.floor(Math.random() * skinLinks.premium.length);
-        let randomImageLink = skinLinks.premium[randomIndex];
-        skin.style = `background-image: url("${randomImageLink}");`;
-    });
-
-    const skinFileInput = document.getElementById("skinFile");
-    const skinSelectIcon = document.getElementById("js-skin-select-icon");
-    let skinFileLabel = document.getElementById("skinFileLabel");
-
-    skinFileInput.addEventListener("change", () => {
-        const file = skinFileInput.files[0];
-        const allowedTypes = ["image/png", "image/jpeg", "image/gif"];
-
-        if (!allowedTypes.includes(file.type)) {
-            alert("Only PNG and JPG are allowed");
-            return;
-        }
-
-        const reader = new FileReader();
-
-        reader.addEventListener("load", () => {
-            skinSelectIcon.style.backgroundImage = `url(${reader.result})`;
-            skinFileLabel.innerText = "Change Skin";
-        });
-
-        reader.readAsDataURL(file);
-    });
-
-    const skinURL = document.getElementById("skinURL");
-    const chooseURL = document.getElementById("chooseURL");
-    chooseURL.addEventListener("click", () => {
-        const imageUrl = skinURL.value;
-        const image = new Image();
-        image.src = imageUrl;
-        image.addEventListener("load", () => {
-            skinSelectIcon.style.backgroundImage = `url(${imageUrl})`;
-        });
-        image.addEventListener("error", () => {
-            alert("Invalid URL. Please enter a valid URL.");
-        });
-    });
-
-    let rainbowMenuBtn = document.getElementById("rainbowMenu");
-    rainbowMenuBtn.onclick = checkStatus;
-    let enableRainbowBackground = false;
-
-    function checkStatus() {
-        if (enableRainbowBackground == false) {
-            changeBackground();
-        } else if (enableRainbowBackground == true) {
-            noBackground();
-        }
+    if (!allowedTypes.includes(file.type)) {
+      alert("Only PNG and JPG are allowed");
+      return;
     }
 
-    function changeBackground() {
-        enableRainbowBackground = true;
-        let menu = document.getElementById("menu");
-        let rightMenu = document.querySelector(".top-users__inner");
-        let leftMenu = document.getElementById("left-menu");
-        let linksMenu = document.querySelector(".menu-links");
-        let deathScreen = document.querySelector(".menu--stats-mode");
+    const reader = new FileReader();
 
-        menu.style.background =
-            "linear-gradient(120deg, red, orange, yellow, green, blue, indigo, violet)";
-        menu.style.backgroundSize = "1000% 400%";
-        menu.style.backgroundPosition = "0% 0%";
+    reader.addEventListener("load", () => {
+      skinSelectIcon.style.backgroundImage = `url(${reader.result})`;
+      skinFileLabel.innerText = "Change Skin";
+    });
 
-        rightMenu.style.background =
-            "linear-gradient(120deg, red, orange, yellow, green, blue, indigo, violet)";
-        rightMenu.style.backgroundSize = "1000% 400%";
-        rightMenu.style.backgroundPosition = "0% 0%";
-        rightMenu.style.borderRadius = "15px";
+    reader.readAsDataURL(file);
+  });
 
-        leftMenu.style.background =
-            "linear-gradient(120deg, red, orange, yellow, green, blue, indigo, violet)";
-        leftMenu.style.backgroundSize = "1000% 400%";
-        leftMenu.style.backgroundPosition = "0% 0%";
+  const skinURL = document.getElementById("skinURL");
+  const chooseURL = document.getElementById("chooseURL");
+  chooseURL.addEventListener("click", () => {
+    const imageUrl = skinURL.value;
+    const image = new Image();
+    image.src = imageUrl;
+    image.addEventListener("load", () => {
+      skinSelectIcon.style.backgroundImage = `url(${imageUrl})`;
+    });
+    image.addEventListener("error", () => {
+      alert("Invalid URL. Please enter a valid URL.");
+    });
+  });
 
-        linksMenu.style.background =
-            "linear-gradient(120deg, red, orange, yellow, green, blue, indigo, violet)";
-        linksMenu.style.backgroundSize = "1000% 400%";
-        linksMenu.style.backgroundPosition = "0% 0%";
+  let rainbowMenuBtn = document.getElementById("rainbowMenu");
+  rainbowMenuBtn.onclick = checkStatus;
+  let enableRainbowBackground = false;
 
-        deathScreen.style.background =
-            "linear-gradient(120deg, red, orange, yellow, green, blue, indigo, violet)";
-        deathScreen.style.backgroundSize = "1000% 400%";
-        deathScreen.style.backgroundPosition = "0% 0%";
+  function checkStatus() {
+    if (enableRainbowBackground == false) {
+      changeBackground();
+    } else if (enableRainbowBackground == true) {
+      noBackground();
+    }
+  }
 
-        const keyframeAnimation = `
+  function changeBackground() {
+    enableRainbowBackground = true;
+    let menu = document.getElementById("menu");
+    let rightMenu = document.querySelector(".top-users__inner");
+    let leftMenu = document.getElementById("left-menu");
+    let linksMenu = document.querySelector(".menu-links");
+    let deathScreen = document.querySelector(".menu--stats-mode");
+
+    menu.style.background =
+      "linear-gradient(120deg, red, orange, yellow, green, blue, indigo, violet)";
+    menu.style.backgroundSize = "1000% 400%";
+    menu.style.backgroundPosition = "0% 0%";
+
+    rightMenu.style.background =
+      "linear-gradient(120deg, red, orange, yellow, green, blue, indigo, violet)";
+    rightMenu.style.backgroundSize = "1000% 400%";
+    rightMenu.style.backgroundPosition = "0% 0%";
+    rightMenu.style.borderRadius = "15px";
+
+    leftMenu.style.background =
+      "linear-gradient(120deg, red, orange, yellow, green, blue, indigo, violet)";
+    leftMenu.style.backgroundSize = "1000% 400%";
+    leftMenu.style.backgroundPosition = "0% 0%";
+
+    linksMenu.style.background =
+      "linear-gradient(120deg, red, orange, yellow, green, blue, indigo, violet)";
+    linksMenu.style.backgroundSize = "1000% 400%";
+    linksMenu.style.backgroundPosition = "0% 0%";
+
+    deathScreen.style.background =
+      "linear-gradient(120deg, red, orange, yellow, green, blue, indigo, violet)";
+    deathScreen.style.backgroundSize = "1000% 400%";
+    deathScreen.style.backgroundPosition = "0% 0%";
+
+    const keyframeAnimation = `
                 @keyframes rainbow {
                   0% {
                     background-position: 0% 50%;
@@ -1097,264 +1097,266 @@ setTimeout(() => {
                   }
                }
             `;
-        const styleSheet = document.styleSheets[0];
-        styleSheet.insertRule(keyframeAnimation, styleSheet.cssRules.length);
+    const styleSheet = document.styleSheets[0];
+    styleSheet.insertRule(keyframeAnimation, styleSheet.cssRules.length);
 
-        menu.style.animation = "rainbow 5s ease infinite";
-        rightMenu.style.animation = "rainbow 5s ease infinite";
-        leftMenu.style.animation = "rainbow 5s ease infinite";
-        linksMenu.style.animation = "rainbow 5s ease infinite";
-        deathScreen.style.animation = "rainbow 5s ease infinite";
+    menu.style.animation = "rainbow 5s ease infinite";
+    rightMenu.style.animation = "rainbow 5s ease infinite";
+    leftMenu.style.animation = "rainbow 5s ease infinite";
+    linksMenu.style.animation = "rainbow 5s ease infinite";
+    deathScreen.style.animation = "rainbow 5s ease infinite";
+  }
+
+  function noBackground() {
+    enableRainbowBackground = false;
+    let menu = document.getElementById("menu");
+    let rightMenu = document.querySelector(".top-users__inner");
+    let leftMenu = document.getElementById("left-menu");
+    let linksMenu = document.querySelector(".menu-links");
+    let deathScreen = document.querySelector(".menu--stats-mode");
+    menu.style.background = "";
+    menu.style.backgroundSize = "100%";
+    menu.style.backgroundPosition = "";
+
+    rightMenu.style.background = "";
+    rightMenu.style.backgroundSize = "100%";
+    rightMenu.style.backgroundPosition = "";
+
+    leftMenu.style.background = "";
+    leftMenu.style.backgroundSize = "100%";
+    leftMenu.style.backgroundPosition = "";
+
+    linksMenu.style.background = "";
+    linksMenu.style.backgroundSize = "100%";
+    linksMenu.style.backgroundPosition = "";
+
+    deathScreen.style.background = "";
+    deathScreen.style.backgroundSize = "100%";
+    deathScreen.style.backgroundPosition = "";
+  }
+
+  function darkModeMenu() {
+    let menu = document.getElementById("menu");
+    let rightMenu = document.querySelector(".top-users__inner");
+    let leftMenu = document.getElementById("left-menu");
+    let linksMenu = document.querySelector(".menu-links");
+    let deathScreen = document.querySelector(".menu--stats-mode");
+
+    menu.style.backgroundColor = "#333";
+    menu.style.color = "#D5D5D5";
+
+    rightMenu.style.backgroundColor = "#333";
+    rightMenu.style.color = "#D5D5D5";
+
+    leftMenu.style.backgroundColor = "#333";
+    leftMenu.style.color = "#D5D5D5";
+
+    linksMenu.style.backgroundColor = "#333";
+    linksMenu.style.color = "#D5D5D5";
+
+    deathScreen.style.backgroundColor = "#333";
+    deathScreen.style.color = "#D5D5D5";
+  }
+
+  function lightModeMenu() {
+    let menu = document.getElementById("menu");
+    let rightMenu = document.querySelector(".top-users__inner");
+    let leftMenu = document.getElementById("left-menu");
+    let linksMenu = document.querySelector(".menu-links");
+    let deathScreen = document.querySelector(".menu--stats-mode");
+    let body = document.querySelector("body");
+    body.style.color = "#fff";
+
+    menu.style.backgroundColor = "#fff";
+
+    rightMenu.style.backgroundColor = "#fff";
+    rightMenu.style.Color = "#000";
+
+    leftMenu.style.backgroundColor = "#fff";
+
+    linksMenu.style.backgroundColor = "#fff";
+
+    deathScreen.style.backgroundColor = "#fff";
+  }
+
+  let nb = document.getElementById("nightBtn");
+  let lb = document.getElementById("lightBtn");
+
+  nb.onclick = () => {
+    darkMode();
+    let bodyInner = document.querySelector(".body__inner");
+    if (bodyInner) {
+      let elements = bodyInner.querySelectorAll("label, span, td, h1, th, h3");
+      let SkinsTxt = document.getElementById("js-skin-select-icon-text");
+      elements.forEach((element) => {
+        element.style.color = "#fff";
+        SkinsTxt.style.color = "#fff";
+      });
     }
-
-    function noBackground() {
-        enableRainbowBackground = false;
-        let menu = document.getElementById("menu");
-        let rightMenu = document.querySelector(".top-users__inner");
-        let leftMenu = document.getElementById("left-menu");
-        let linksMenu = document.querySelector(".menu-links");
-        let deathScreen = document.querySelector(".menu--stats-mode");
-        menu.style.background = "";
-        menu.style.backgroundSize = "100%";
-        menu.style.backgroundPosition = "";
-
-        rightMenu.style.background = "";
-        rightMenu.style.backgroundSize = "100%";
-        rightMenu.style.backgroundPosition = "";
-
-        leftMenu.style.background = "";
-        leftMenu.style.backgroundSize = "100%";
-        leftMenu.style.backgroundPosition = "";
-
-        linksMenu.style.background = "";
-        linksMenu.style.backgroundSize = "100%";
-        linksMenu.style.backgroundPosition = "";
-
-        deathScreen.style.background = "";
-        deathScreen.style.backgroundSize = "100%";
-        deathScreen.style.backgroundPosition = "";
+  };
+  lb.onclick = () => {
+    lightMode();
+    let bodyInner = document.querySelector(".body__inner");
+    if (bodyInner) {
+      let elements = bodyInner.querySelectorAll("label, span, td, h1, th, h3");
+      let SkinsTxt = document.getElementById("js-skin-select-icon-text");
+      elements.forEach((element) => {
+        element.style.color = "#333";
+        SkinsTxt.style.color = "#333";
+      });
     }
+  };
 
-    function darkModeMenu() {
-        let menu = document.getElementById("menu");
-        let rightMenu = document.querySelector(".top-users__inner");
-        let leftMenu = document.getElementById("left-menu");
-        let linksMenu = document.querySelector(".menu-links");
-        let deathScreen = document.querySelector(".menu--stats-mode");
-
-        menu.style.backgroundColor = "#333";
-        menu.style.color = "#D5D5D5";
-
-        rightMenu.style.backgroundColor = "#333";
-        rightMenu.style.color = "#D5D5D5";
-
-        leftMenu.style.backgroundColor = "#333";
-        leftMenu.style.color = "#D5D5D5";
-
-        linksMenu.style.backgroundColor = "#333";
-        linksMenu.style.color = "#D5D5D5";
-
-        deathScreen.style.backgroundColor = "#333";
-        deathScreen.style.color = "#D5D5D5";
-    }
-
-    function lightModeMenu() {
-        let menu = document.getElementById("menu");
-        let rightMenu = document.querySelector(".top-users__inner");
-        let leftMenu = document.getElementById("left-menu");
-        let linksMenu = document.querySelector(".menu-links");
-        let deathScreen = document.querySelector(".menu--stats-mode");
-        let body = document.querySelector("body");
-        body.style.color = "#fff";
-
-        menu.style.backgroundColor = "#fff";
-
-        rightMenu.style.backgroundColor = "#fff";
-        rightMenu.style.Color = "#000";
-
-        leftMenu.style.backgroundColor = "#fff";
-
-        linksMenu.style.backgroundColor = "#fff";
-
-        deathScreen.style.backgroundColor = "#fff";
-    }
+  function lightMode() {
+    let menu = document.getElementById("menu");
+    let rightMenu = document.querySelector(".top-users__inner");
+    let leftMenu = document.getElementById("left-menu");
+    let linksMenu = document.querySelector(".menu-links");
+    let deathScreen = document.querySelector(".menu--stats-mode");
+    menu.style.backgroundColor = "#fff";
+    rightMenu.style.backgroundColor = "#fff";
+    leftMenu.style.backgroundColor = "#fff";
+    linksMenu.style.backgroundColor = "#fff";
+    deathScreen.style.backgroundColor = "#fff";
 
     let nb = document.getElementById("nightBtn");
     let lb = document.getElementById("lightBtn");
 
-    nb.onclick = () => {
-        darkMode();
-        let bodyInner = document.querySelector(".body__inner");
-        if (bodyInner) {
-            let elements = bodyInner.querySelectorAll("label, span, td, h1, th, h3");
-            let SkinsTxt = document.getElementById("js-skin-select-icon-text");
-            elements.forEach((element) => {
-                element.style.color = "#fff";
-                SkinsTxt.style.color = "#fff";
-            });
-        }
-    };
-    lb.onclick = () => {
-        lightMode();
-        let bodyInner = document.querySelector(".body__inner");
-        if (bodyInner) {
-            let elements = bodyInner.querySelectorAll("label, span, td, h1, th, h3");
-            let SkinsTxt = document.getElementById("js-skin-select-icon-text");
-            elements.forEach((element) => {
-                element.style.color = "#333";
-                SkinsTxt.style.color = "#333";
-            });
-        }
-    };
+    lb.style.border = "2px solid #2b39ff";
+    nb.style.border = "2px solid #222";
+  }
 
-    function lightMode() {
-        let menu = document.getElementById("menu");
-        let rightMenu = document.querySelector(".top-users__inner");
-        let leftMenu = document.getElementById("left-menu");
-        let linksMenu = document.querySelector(".menu-links");
-        let deathScreen = document.querySelector(".menu--stats-mode");
-        menu.style.backgroundColor = "#fff";
-        rightMenu.style.backgroundColor = "#fff";
-        leftMenu.style.backgroundColor = "#fff";
-        linksMenu.style.backgroundColor = "#fff";
-        deathScreen.style.backgroundColor = "#fff";
+  function darkMode() {
+    let menu = document.getElementById("menu");
+    let rightMenu = document.querySelector(".top-users__inner");
+    let leftMenu = document.getElementById("left-menu");
+    let linksMenu = document.querySelector(".menu-links");
+    let deathScreen = document.querySelector(".menu--stats-mode");
+    menu.style.backgroundColor = "#222";
+    rightMenu.style.backgroundColor = "#222";
+    leftMenu.style.backgroundColor = "#222";
+    linksMenu.style.backgroundColor = "#222";
+    deathScreen.style.backgroundColor = "#222";
 
-        let nb = document.getElementById("nightBtn");
-        let lb = document.getElementById("lightBtn");
+    let nb = document.getElementById("nightBtn");
+    let lb = document.getElementById("lightBtn");
 
-        lb.style.border = "2px solid #2b39ff";
-        nb.style.border = "2px solid #222";
+    nb.style.border = "2px solid #2b39ff";
+    lb.style.border = "2px solid #222";
+  }
+  let darkthemeCheckbox = document.getElementById("darkTheme");
+  let FlashBGcb = document.getElementById("flashBGCB");
+  let flashingBg;
+  FlashBGcb.addEventListener("click", () => {
+    if (FlashBGcb.checked) {
+      flashingBg = setInterval(function () {
+        darkthemeCheckbox.click();
+      }, 100);
+    } else {
+      clearInterval(flashingBg);
     }
+  });
 
-    function darkMode() {
-        let menu = document.getElementById("menu");
-        let rightMenu = document.querySelector(".top-users__inner");
-        let leftMenu = document.getElementById("left-menu");
-        let linksMenu = document.querySelector(".menu-links");
-        let deathScreen = document.querySelector(".menu--stats-mode");
-        menu.style.backgroundColor = "#222";
-        rightMenu.style.backgroundColor = "#222";
-        leftMenu.style.backgroundColor = "#222";
-        linksMenu.style.backgroundColor = "#222";
-        deathScreen.style.backgroundColor = "#222";
-
-        let nb = document.getElementById("nightBtn");
-        let lb = document.getElementById("lightBtn");
-
-        nb.style.border = "2px solid #2b39ff";
-        lb.style.border = "2px solid #222";
+  let longNickname = document.getElementById("longNickname");
+  let nick = document.getElementById("nick");
+  nick.maxLength = 50;
+  longNickname.addEventListener("click", () => {
+    let nick = document.getElementById("nick");
+    if (longNickname.checked) {
+      nick.maxLength = 50;
+    } else {
+      nick.maxLength = 15;
     }
-    let darkthemeCheckbox = document.getElementById("darkTheme");
-    let FlashBGcb = document.getElementById("flashBGCB");
-    let flashingBg;
-    FlashBGcb.addEventListener("click", () => {
-        if (FlashBGcb.checked) {
-            flashingBg = setInterval(function() {
-                darkthemeCheckbox.click();
-            }, 100);
-        } else {
-            clearInterval(flashingBg);
-        }
+  });
+
+  let HideOpenBtn = document.getElementById("HideOpenBtn");
+  let openBtn = document.getElementById("open");
+
+  if (openBtn) {
+    HideOpenBtn.addEventListener("click", () => {
+      if (openBtn.style.display !== "none") {
+        openBtn.style.display = "none";
+        HideOpenBtn.innerHTML = "Show";
+      } else {
+        openBtn.style.display = "flex";
+        HideOpenBtn.innerHTML = "Hide";
+      }
     });
+  }
 
-    let longNickname = document.getElementById("longNickname");
-    longNickname.addEventListener("click", () => {
-        let nick = document.getElementById("nick");
-        if (longNickname.checked) {
-            nick.maxLength = 50;
-        } else {
-            nick.maxLength = 15;
-        }
-    });
+  let ads = document.querySelectorAll(
+    "#text-block, #left_ad_block, #ad_bottom, .ad-block-left, .ad-block-right, .ad-block__inner"
+  );
+  ads.forEach((ad) => {
+    ad.classList.add("hidden");
+  });
 
-    let HideOpenBtn = document.getElementById("HideOpenBtn");
-    let openBtn = document.getElementById("open");
-
-    if (openBtn) {
-        HideOpenBtn.addEventListener("click", () => {
-            if (openBtn.style.display !== "none") {
-                openBtn.style.display = "none";
-                HideOpenBtn.innerHTML = "Show";
-            } else {
-                openBtn.style.display = "flex";
-                HideOpenBtn.innerHTML = "Hide";
-            }
-        });
-    }
-
+  let removeAds = document.getElementById("removeAdsCb");
+  removeAds.addEventListener("click", () => {
     let ads = document.querySelectorAll(
-        "#text-block, #left_ad_block, #ad_bottom, .ad-block-left, .ad-block-right, .ad-block__inner"
+      "#text-block, #left_ad_block, #ad_bottom, .ad-block-left, .ad-block-right, .ad-block__inner"
     );
-    ads.forEach((ad) => {
+    if (removeAds.checked) {
+      ads.forEach((ad) => {
         ad.classList.add("hidden");
-    });
+      });
+    } else {
+      ads.forEach((ad) => {
+        ad.classList.remove("hidden");
+      });
+    }
+  });
 
-    let removeAds = document.getElementById("removeAdsCb");
-    removeAds.addEventListener("click", () => {
-        let ads = document.querySelectorAll(
-            "#text-block, #left_ad_block, #ad_bottom, .ad-block-left, .ad-block-right, .ad-block__inner"
-        );
-        if (removeAds.checked) {
-            ads.forEach((ad) => {
-                ad.classList.add("hidden");
-            });
-        } else {
-            ads.forEach((ad) => {
-                ad.classList.remove("hidden");
-            });
-        }
-    });
+  let plusBtn = document.querySelector(".plus");
+  plusBtn.addEventListener("click", () => {
+    alert(
+      "this option is currently unavailable, Update the mod if the Developers fixed it."
+    );
+  });
 
-    let plusBtn = document.querySelector(".plus");
-    plusBtn.addEventListener("click", () => {
-        alert(
-            "this option is currently unavailable, Update the mod if the Developers fixed it."
-        );
-    });
-
-    function comingSoonMessage() {
-        let messageSpan = "coming Soon!";
-        const messageDiv = document.createElement("div");
-        messageDiv.style = "display: flex; opacity: 0;";
-        setTimeout(() => {
-            messageDiv.style =
-                "display: flex; opacity: 1; transition: .3s; margin-top: 20px;";
-        }, 50);
-        messageDiv.classList.add("comingSoonDiv");
-        messageDiv.innerHTML = `
+  function comingSoonMessage() {
+    let messageSpan = "coming Soon!";
+    const messageDiv = document.createElement("div");
+    messageDiv.style = "display: flex; opacity: 0;";
+    setTimeout(() => {
+      messageDiv.style =
+        "display: flex; opacity: 1; transition: .3s; margin-top: 20px;";
+    }, 50);
+    messageDiv.classList.add("comingSoonDiv");
+    messageDiv.innerHTML = `
              <div class="CSD">
                <span class="ComingSoonSpan">${messageSpan}</span>
              </div>
            `;
-        setTimeout(function() {
-            messageDiv.style = "opacity: 0; transition: .3s; margin-top: 0px;";
-            setTimeout(function() {
-                messageDiv.style.display = "none";
-            }, 300);
-        }, 2000);
-        document.body.appendChild(messageDiv);
-    }
+    setTimeout(function () {
+      messageDiv.style = "opacity: 0; transition: .3s; margin-top: 0px;";
+      setTimeout(function () {
+        messageDiv.style.display = "none";
+      }, 300);
+    }, 2000);
+    document.body.appendChild(messageDiv);
+  }
 
-    function s() {
-        const messageDiv = document.createElement("div");
-        messageDiv.style = "display: flex; opacity: 0;";
-        setTimeout(() => {
-            messageDiv.style =
-                "display: flex; opacity: 1; transition: .3s; margin-top: 20px;";
-        }, 50);
-        messageDiv.classList.add("comingSoonDiv");
-        messageDiv.innerHTML = `
+  function s() {
+    const messageDiv = document.createElement("div");
+    messageDiv.style = "display: flex; opacity: 0;";
+    setTimeout(() => {
+      messageDiv.style =
+        "display: flex; opacity: 1; transition: .3s; margin-top: 20px;";
+    }, 50);
+    messageDiv.classList.add("comingSoonDiv");
+    messageDiv.innerHTML = `
             <div class="CSD">
                <span class="ComingSoonSpan">This Mod still contains Bugs and will be updated soon.</span>
                <button class="button">read more</button>
             </div>
            `;
-        setTimeout(function() {
-            messageDiv.style = "opacity: 0; transition: .3s; margin-top: 0px;";
-            setTimeout(function() {
-                messageDiv.style.display = "none";
-            }, 300);
-        }, 2000);
-        document.body.appendChild(messageDiv);
-    }
+    setTimeout(function () {
+      messageDiv.style = "opacity: 0; transition: .3s; margin-top: 0px;";
+      setTimeout(function () {
+        messageDiv.style.display = "none";
+      }, 300);
+    }, 2000);
+    document.body.appendChild(messageDiv);
+  }
 }, 500);
